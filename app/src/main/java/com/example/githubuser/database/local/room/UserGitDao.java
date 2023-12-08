@@ -1,10 +1,12 @@
-package com.example.githubuser.database.local.entity;
+package com.example.githubuser.database.local.room;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.githubuser.database.local.entity.UserGitEntity;
 
 import java.util.List;
 
