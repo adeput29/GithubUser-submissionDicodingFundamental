@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 interface ApiService {
-    @GET("detail/{id}")
+    @GET("id/{id}")
     Call<GitUserResponse> getRestaurant(@Path("id") String id);
+    Call<GitUserResponse> getUserGit(@Query("apiKey") String apiKey);
 }
