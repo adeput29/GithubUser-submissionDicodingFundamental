@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">GithubUser</string>
+    <string name="CariUser">Cari User</string>
+    <string name="favorite">Favorite</string>
+    <string name="pengaturan">Pengaturan</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nama_user">Nama User</string>
+    <string name="keterangan">Keterangan</string>
+    <string name="username">Username</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="title_activity_detail_users">DetailUsers</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_detail_user">DetailUser</string>
+</resources>
