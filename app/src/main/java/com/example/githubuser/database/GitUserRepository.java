@@ -6,8 +6,8 @@ import androidx.lifecycle.MediatorLiveData;
 
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.room.UserGitDao;
-import com.example.githubuser.database.remote.response.AllUserGitResponse;
-import com.example.githubuser.database.remote.response.GitUserResponse;
+import com.example.githubuser.database.remote.response.GitItems;
+import com.example.githubuser.database.remote.response.GitResponse;
 import com.example.githubuser.database.remote.retrofit.ApiService;
 import com.example.githubuser.utils.AppExecutors;
 
@@ -19,7 +19,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GitUserRepository {
-    private ArrayList<AllUserGitResponse.GithubUser> listUser;
     private volatile static GitUserRepository INSTANCE = null;
     private final ApiService apiService;
 
@@ -46,28 +45,25 @@ public class GitUserRepository {
 
     public LiveData<Result<List<UserGitEntity>>> getUserGit() {
         result.setValue(new Result.Loading<>());
-
-        //Call<GitUserResponse> client = apiService.getUserGit(BuildConfig.API_KEY);
-        Call<GitUserResponse> client = apiService.getUserGit("adeput29");
-        client.enqueue(new Callback<GitUserResponse>() {
+        Call<GitResponse> client = apiService.getUserGit("b");
+        client.enqueue(new Callback<GitResponse>() {
             @Override
-            public void onResponse(@NonNull Call<GitUserResponse> call, @NonNull Response<GitUserResponse> response) {
+            public void onResponse(@NonNull Call<GitResponse> call, @NonNull Response<GitResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        listUser = response.body().getGithubUsers();
-                        //List<ArticlesItem> articles = response.body().getArticles();
+                        List<GitItems> itemUser = response.body().getItems();
                         ArrayList<UserGitEntity> newlist = new ArrayList<>();
                         appExecutors.diskIO().execute(() -> {
-                            for (GitUserResponse gitUserResponse : listUser) {
-                                Boolean isBookmarked = userGitDao.isUserBookmark(gitUserResponse.getId());
+                            for (GitItems gitItems : itemUser) {
+                                Boolean isBookmarked = userGitDao.isUserBookmark(gitItems.getId());
                                 UserGitEntity list = new UserGitEntity(
-                                        gitUserResponse.getId(),
+                                        gitItems.getId(),
                                         isBookmarked,
-                                        gitUserResponse.getAvatarUrl(),
-                                        gitUserResponse.getFollowersUrl(),
-                                        gitUserResponse.getFollowingUrl(),
-                                        gitUserResponse.getLogin(),
-                                        gitUserResponse.getName()
+                                        gitItems.getAvatarUrl(),
+                                        gitItems.getFollowersUrl(),
+                                        gitItems.getFollowingUrl(),
+                                        gitItems.getLogin(),
+                                        gitItems.getLogin()
                                 );
                                 newlist.add(list);
                             }
@@ -79,7 +75,7 @@ public class GitUserRepository {
             }
 
             @Override
-            public void onFailure(@NonNull Call<GitUserResponse> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<GitResponse> call, @NonNull Throwable t) {
                 result.setValue(new Result.Error<>(t.getLocalizedMessage()));
             }
         });
