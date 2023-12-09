@@ -47,7 +47,7 @@ public class GitUserRepository {
         result.setValue(new Result.Loading<>());
 
         //Call<GitUserResponse> client = apiService.getUserGit(BuildConfig.API_KEY);
-        Call<GitUserResponse> client = apiService.getUserGit("");
+        Call<GitUserResponse> client = apiService.getUserGit("adeput29");
         client.enqueue(new Callback<GitUserResponse>() {
             @Override
             public void onResponse(@NonNull Call<GitUserResponse> call, @NonNull Response<GitUserResponse> response) {
