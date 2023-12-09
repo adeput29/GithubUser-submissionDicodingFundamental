@@ -13,7 +13,7 @@ public class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build();
         Retrofit retrofit = new retrofit2.Retrofit.Builder()
-                .baseUrl("https://api.github.com/users")
+                .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

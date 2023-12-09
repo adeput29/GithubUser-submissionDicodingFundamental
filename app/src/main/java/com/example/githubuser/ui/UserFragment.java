@@ -24,7 +24,7 @@ import java.util.List;
 public class UserFragment extends Fragment {
 
     public static final String ARG_TAB = "tab_name";
-    public static final String TAB_NEWS = "news";
+    public static final String TAB_USER = "user";
     public static final String TAB_BOOKMARK = "bookmark";
     private FragmentUserBinding binding;
     private String tabName;
@@ -49,23 +49,23 @@ public class UserFragment extends Fragment {
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
         UserGitViewModel viewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
 
-        NewsAdapter newsAdapter = new NewsAdapter(news -> {
-            if (news.isBookmarked()) {
-                viewModel.deleteNews(news);
+        UserGitAdapter userGitAdapter = new UserGitAdapter(userGitEntity -> {
+            if (userGitEntity.getBookmark()) {
+                viewModel.deleteUser(userGitEntity);
             } else {
-                viewModel.saveNews(news);
+                viewModel.saveUser(userGitEntity);
             }
         });
 
-        if (tabName.equals(TAB_NEWS)) {
+        if (tabName.equals(TAB_USER)) {
             viewModel.getUserGit().observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
                     } else if (result instanceof Result.Success){
                         binding.progressBar.setVisibility(View.GONE);
-                        List<UserGitEntity> newsData = ((Result.Success<List<UserGitEntity>>) result).getData();
-                        newsAdapter.submitList(newsData);
+                        List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
+                        userGitAdapter.submitList(userData);
                     } else if (result instanceof Result.Error){
                         binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
@@ -73,15 +73,15 @@ public class UserFragment extends Fragment {
                 }
             });
         } else if (tabName.equals(TAB_BOOKMARK)){
-            viewModel.getBookmark().observe(getViewLifecycleOwner(), bookmarkedNews -> {
+            viewModel.getBookmark().observe(getViewLifecycleOwner(), bookmarked -> {
                 binding.progressBar.setVisibility(View.GONE);
-                newsAdapter.submitList(bookmarkedNews);
+                userGitAdapter.submitList(bookmarked);
             });
         }
 
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvUser.setHasFixedSize(true);
-        binding.rvUser.setAdapter(newsAdapter);
+        binding.rvUser.setAdapter(userGitAdapter);
     }
 
     @Override

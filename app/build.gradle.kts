@@ -4,6 +4,8 @@ plugins {
     id("com.google.devtools.ksp") version "1.8.22-1.0.11" apply false
 }
 
+
+
 android {
     namespace = "com.example.githubuser"
     compileSdk = 34
@@ -14,6 +16,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

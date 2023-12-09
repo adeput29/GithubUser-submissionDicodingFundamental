@@ -6,12 +6,10 @@ import androidx.lifecycle.MediatorLiveData;
 
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.room.UserGitDao;
-import com.example.githubuser.database.local.room.UserGitDatabase;
 import com.example.githubuser.database.remote.response.GitUserResponse;
 import com.example.githubuser.database.remote.retrofit.ApiService;
 import com.example.githubuser.utils.AppExecutors;
 
-import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GitUserRepository {
-
+    private ArrayList<GitUserResponse.GithubUser> listUser;
     private volatile static GitUserRepository INSTANCE = null;
     private final ApiService apiService;
 
@@ -48,29 +46,32 @@ public class GitUserRepository {
     public LiveData<Result<List<UserGitEntity>>> getUserGit() {
         result.setValue(new Result.Loading<>());
 
-        Call<GitUserResponse> client = apiService.getUserGit(BuildConfig.API_KEY);
+        //Call<GitUserResponse> client = apiService.getUserGit(BuildConfig.API_KEY);
+        Call<GitUserResponse> client = apiService.getUserGit("");
         client.enqueue(new Callback<GitUserResponse>() {
             @Override
             public void onResponse(@NonNull Call<GitUserResponse> call, @NonNull Response<GitUserResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
+                        listUser = response.body().getGithubUsers();
                         //List<ArticlesItem> articles = response.body().getArticles();
-
-                        ArrayList<UserGitEntity> newsList = new ArrayList<>();
+                        ArrayList<UserGitEntity> newlist = new ArrayList<>();
                         appExecutors.diskIO().execute(() -> {
-                            for (ArticlesItem article : articles) {
-                                Boolean isBookmarked = userGitDao.isUserBookmark(article.getTitle());
-                                UserGitEntity userGitEntity = new UserGitEntity(
-                                        article.getTitle(),
-                                        article.getPublishedAt(),
-                                        article.getUrlToImage(),
-                                        article.getUrl(),
-                                        isBookmarked
+                            for (GitUserResponse gitUserResponse : listUser) {
+                                Boolean isBookmarked = userGitDao.isUserBookmark(gitUserResponse.getId());
+                                UserGitEntity list = new UserGitEntity(
+                                        gitUserResponse.getId(),
+                                        isBookmarked,
+                                        gitUserResponse.getAvatarUrl(),
+                                        gitUserResponse.getFollowersUrl(),
+                                        gitUserResponse.getFollowingUrl(),
+                                        gitUserResponse.getLogin(),
+                                        gitUserResponse.getName()
                                 );
-                                newsList.add(userGitEntity);
+                                newlist.add(list);
                             }
                             userGitDao.deleteAll();
-                            userGitDao.insertUserGit(newsList);
+                            userGitDao.insertUserGit(newlist);
                         });
                     }
                 }

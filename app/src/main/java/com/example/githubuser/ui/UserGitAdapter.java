@@ -43,8 +43,8 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
         UserGitEntity userGitEntity = getItem(position);
         holder.bind(userGitEntity);
 
-        ImageView ivBookmark = holder.binding.ivBookmark;
-        if (userGitEntity.isBookmarked()) {
+        /*ImageView ivBookmark = holder.binding.ivBookmark;
+        if (userGitEntity.getBookmark()) {
             ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.getContext(), R.drawable.ic_bookmarked_white));
         } else {
             ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.getContext(), R.drawable.ic_bookmark_white));
@@ -52,7 +52,7 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
 
         ivBookmark.setOnClickListener(view -> {
             onItemClickCallback.onBookmarkClick(userGitEntity);
-        });
+        });*/
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {

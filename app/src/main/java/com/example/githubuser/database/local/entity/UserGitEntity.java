@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "UserGit")
 public class UserGitEntity implements Parcelable {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     private int id;
 
@@ -80,9 +80,6 @@ public class UserGitEntity implements Parcelable {
         this.namaUser = namaUser;
     }
 
-    @Ignore
-    public UserGitEntity(){
-    }
 
 
     public int getId() {
