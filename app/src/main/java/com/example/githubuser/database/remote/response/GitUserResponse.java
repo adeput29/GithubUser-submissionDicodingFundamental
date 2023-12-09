@@ -19,14 +19,16 @@ public class GitUserResponse {
 	}
 
 	public class GithubUser extends GitUserResponse {
-		@SerializedName("avatar_url")
-		private String avatar_url;
+		/*@SerializedName("avatar_url")
+		private String avatarurl;
 
 		@SerializedName("html_url")
 		private String html_url;
 
 		@SerializedName("login")
-		private String login;
+		private String login;*/
+
+		Disini Cekkkkkkkk!!!
 	}
 
 	@SerializedName("gists_url")
