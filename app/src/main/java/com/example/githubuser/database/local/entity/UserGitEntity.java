@@ -16,7 +16,7 @@ public class UserGitEntity implements Parcelable {
     private int id;
 
     @ColumnInfo(name = "bookmark")
-    private int bookmark;
+    private boolean bookmark;
 
     @ColumnInfo(name = "avatar_url")
     private String avatar_url;
@@ -34,7 +34,7 @@ public class UserGitEntity implements Parcelable {
 
     protected UserGitEntity(Parcel in) {
         id = in.readInt();
-        bookmark = in.readInt();
+        bookmark = in.readBoolean();
         avatar_url = in.readString();
         followers_url = in.readString();
         following_url = in.readString();
@@ -62,7 +62,7 @@ public class UserGitEntity implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
         parcel.writeInt(id);
-        parcel.writeInt(bookmark);
+        parcel.writeBoolean(bookmark);
         parcel.writeString(avatar_url);
         parcel.writeString(followers_url);
         parcel.writeString(following_url);
@@ -70,7 +70,7 @@ public class UserGitEntity implements Parcelable {
         parcel.writeString(namaUser);
     }
 
-    public UserGitEntity(int id, int bookmark, String avatar_url, String followers_url, String following_url, String username, String namaUser) {
+    public UserGitEntity(int id, boolean bookmark, String avatar_url, String followers_url, String following_url, String username, String namaUser) {
         this.id = id;
         this.bookmark = bookmark;
         this.avatar_url = avatar_url;
@@ -82,5 +82,62 @@ public class UserGitEntity implements Parcelable {
 
     @Ignore
     public UserGitEntity(){
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean getBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(boolean bookmark) {
+        this.bookmark = bookmark;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
+    public String getFollowers_url() {
+        return followers_url;
+    }
+
+    public void setFollowers_url(String followers_url) {
+        this.followers_url = followers_url;
+    }
+
+    public String getFollowing_url() {
+        return following_url;
+    }
+
+    public void setFollowing_url(String following_url) {
+        this.following_url = following_url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNamaUser() {
+        return namaUser;
+    }
+
+    public void setNamaUser(String namaUser) {
+        this.namaUser = namaUser;
     }
 }
