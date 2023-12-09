@@ -1,14 +1,12 @@
-package com.example.githubuser.ui;
+package com.example.githubuser.ui.detail;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,7 +64,7 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
 
         void bind(UserGitEntity userGitEntity) {
             binding.tvNamaUser.setText(userGitEntity.getNamaUser());
-            binding.tvKeterangan.setText(userGitEntity.getUsername());
+            binding.tvKeterangan.setText("ID: "+userGitEntity.getId());
             Glide.with(itemView.getContext())
                     .load(userGitEntity.getAvatar_url())
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))

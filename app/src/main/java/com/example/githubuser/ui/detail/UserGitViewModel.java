@@ -1,4 +1,4 @@
-package com.example.githubuser.ui;
+package com.example.githubuser.ui.detail;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;

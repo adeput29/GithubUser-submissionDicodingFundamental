@@ -9,10 +9,9 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     //@Headers("Authorization: token ${BuildConfig.GITHUB_TOKEN}")
-    @GET("search/users?q=a")
-    //@GET("users/{login}")
+    @GET("search/users")
     @Headers({"Authorization: token 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"})
-    Call<GitResponse> getUserGit(@Query("login") String login);
+    Call<GitResponse> getUserGit(@Query("q") String q);
 
     @GET("users/{login}")
     @Headers({"Authorization: token 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"})

@@ -1,4 +1,4 @@
-package com.example.githubuser.ui;
+package com.example.githubuser.ui.detail;
 
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.githubuser.R;
 import com.example.githubuser.database.Result;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.databinding.FragmentUserBinding;

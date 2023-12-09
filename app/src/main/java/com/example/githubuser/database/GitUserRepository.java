@@ -45,7 +45,7 @@ public class GitUserRepository {
 
     public LiveData<Result<List<UserGitEntity>>> getUserGit() {
         result.setValue(new Result.Loading<>());
-        Call<GitResponse> client = apiService.getUserGit("b");
+        Call<GitResponse> client = apiService.getUserGit("a");
         client.enqueue(new Callback<GitResponse>() {
             @Override
             public void onResponse(@NonNull Call<GitResponse> call, @NonNull Response<GitResponse> response) {
