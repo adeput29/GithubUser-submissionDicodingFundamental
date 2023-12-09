@@ -7,29 +7,6 @@ import java.util.List;
 
 public class GitUserResponse {
 
-	@SerializedName("items")
-	private ArrayList<GithubUser> githubUsers;
-
-	public ArrayList<GithubUser> getGithubUsers() {
-		return githubUsers;
-	}
-
-	public void setGithubUsers(ArrayList<GithubUser> githubUsers) {
-		this.githubUsers = githubUsers;
-	}
-
-	public class GithubUser extends GitUserResponse {
-		/*@SerializedName("avatar_url")
-		private String avatarurl;
-
-		@SerializedName("html_url")
-		private String html_url;
-
-		@SerializedName("login")
-		private String login;*/
-
-		Disini Cekkkkkkkk!!!
-	}
 
 	@SerializedName("gists_url")
 	private String gistsUrl;

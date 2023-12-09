@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData;
 
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.room.UserGitDao;
+import com.example.githubuser.database.remote.response.AllUserGitResponse;
 import com.example.githubuser.database.remote.response.GitUserResponse;
 import com.example.githubuser.database.remote.retrofit.ApiService;
 import com.example.githubuser.utils.AppExecutors;
@@ -18,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GitUserRepository {
-    private ArrayList<GitUserResponse.GithubUser> listUser;
+    private ArrayList<AllUserGitResponse.GithubUser> listUser;
     private volatile static GitUserRepository INSTANCE = null;
     private final ApiService apiService;
 
