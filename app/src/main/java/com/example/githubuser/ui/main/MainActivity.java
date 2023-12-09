@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.topAppBar);
         setActionBarTitle(title);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new MainFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
