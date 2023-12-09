@@ -1,0 +1,92 @@
+package com.example.githubuser.ui;
+
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.githubuser.R;
+import com.example.githubuser.database.Result;
+import com.example.githubuser.database.local.entity.UserGitEntity;
+import com.example.githubuser.databinding.FragmentUserBinding;
+
+import java.util.List;
+
+
+public class UserFragment extends Fragment {
+
+    public static final String ARG_TAB = "tab_name";
+    public static final String TAB_NEWS = "news";
+    public static final String TAB_BOOKMARK = "bookmark";
+    private FragmentUserBinding binding;
+    private String tabName;
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentUserBinding.inflate(inflater);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments() != null) {
+            tabName = getArguments().getString(ARG_TAB);
+        }
+
+        ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
+        UserGitViewModel viewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
+
+        NewsAdapter newsAdapter = new NewsAdapter(news -> {
+            if (news.isBookmarked()) {
+                viewModel.deleteNews(news);
+            } else {
+                viewModel.saveNews(news);
+            }
+        });
+
+        if (tabName.equals(TAB_NEWS)) {
+            viewModel.getUserGit().observe(getViewLifecycleOwner(), result -> {
+                if (result != null) {
+                    if (result instanceof Result.Loading){
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                    } else if (result instanceof Result.Success){
+                        binding.progressBar.setVisibility(View.GONE);
+                        List<UserGitEntity> newsData = ((Result.Success<List<UserGitEntity>>) result).getData();
+                        newsAdapter.submitList(newsData);
+                    } else if (result instanceof Result.Error){
+                        binding.progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else if (tabName.equals(TAB_BOOKMARK)){
+            viewModel.getBookmark().observe(getViewLifecycleOwner(), bookmarkedNews -> {
+                binding.progressBar.setVisibility(View.GONE);
+                newsAdapter.submitList(bookmarkedNews);
+            });
+        }
+
+        binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvUser.setHasFixedSize(true);
+        binding.rvUser.setAdapter(newsAdapter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
+}

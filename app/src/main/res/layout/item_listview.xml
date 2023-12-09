@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgUser"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        tools:src="@android:color/darker_gray" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/imgUser"
+        android:layout_toRightOf="@id/imgUser"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvNamaUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="@string/nama_user" />
+        <TextView
+            android:id="@+id/tvKeterangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="@string/keterangan" />
+    </LinearLayout>
+
+</RelativeLayout>
