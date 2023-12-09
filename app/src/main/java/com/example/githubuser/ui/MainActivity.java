@@ -1,4 +1,4 @@
-package com.example.githubuser;
+package com.example.githubuser.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.githubuser.R;
 import com.example.githubuser.databinding.ActivityMainBinding;
+import com.example.githubuser.ui.DetailUser;
 
 public class MainActivity extends AppCompatActivity {
 

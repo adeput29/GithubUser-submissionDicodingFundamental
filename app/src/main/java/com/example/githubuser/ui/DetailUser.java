@@ -1,4 +1,4 @@
-package com.example.githubuser;
+package com.example.githubuser.ui;
 
 import android.os.Bundle;
 

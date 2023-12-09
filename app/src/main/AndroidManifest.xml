@@ -13,12 +13,12 @@
         android:theme="@style/Theme.GithubUser"
         tools:targetApi="31">
         <activity
-            android:name=".DetailUser"
+            android:name=".ui.DetailUser"
             android:exported="false"
             android:label="@string/title_activity_detail_user"
             android:theme="@style/Theme.GithubUser.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

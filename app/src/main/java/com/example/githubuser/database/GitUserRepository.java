@@ -82,7 +82,7 @@ public class GitUserRepository {
             }
         });
 
-        LiveData<List<UserGitEntity>> localData = userGitDao.getUserGit;
+        LiveData<List<UserGitEntity>> localData = userGitDao.getUserGit();
         if (localData != null) {
             result.addSource(localData, newData -> result.setValue(new Result.Success<>(newData)));
         }
@@ -90,7 +90,11 @@ public class GitUserRepository {
         return result;
     }
 
-    public void setNewsBookmark(UserGitEntity userGitEntity, boolean bookmarkState) {
+    public LiveData<List<UserGitEntity>> getBookmark() {
+        return userGitDao.getBookmark();
+    }
+
+    public void setBookmark(UserGitEntity userGitEntity, boolean bookmarkState) {
         appExecutors.diskIO().execute(() -> {
             userGitEntity.setBookmark(bookmarkState);
             userGitDao.updateUserGit(userGitEntity);
