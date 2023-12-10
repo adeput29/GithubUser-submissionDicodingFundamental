@@ -1,8 +1,10 @@
 package com.example.githubuser.ui.detail;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -33,6 +35,19 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
 
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    public void setCurrentTab(int position){
+        UserFragment fragment = new UserFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(UserFragment.USER_SELECTED,UserSelected);
+        if (position == 0) {
+            bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWING);
+        } else {
+            bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWERS);
+        }
+
+        fragment.setArguments(bundle);
     }
 
     @Override

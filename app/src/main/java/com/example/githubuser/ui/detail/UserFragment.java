@@ -1,5 +1,6 @@
 package com.example.githubuser.ui.detail;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.githubuser.database.Result;
@@ -65,6 +67,7 @@ public class UserFragment extends Fragment {
         });
 
         if (tabName.equals(TAB_FOLLOWING)) {
+            Toast.makeText(getContext(),"TAB FOLLOWING", Toast.LENGTH_LONG).show();
             viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
@@ -80,6 +83,7 @@ public class UserFragment extends Fragment {
                 }
             });
         } else if (tabName.equals(TAB_FOLLOWERS)){
+            Toast.makeText(getContext(),"TAB FOLLOWERS", Toast.LENGTH_LONG).show();
             viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
@@ -95,9 +99,26 @@ public class UserFragment extends Fragment {
                 }
             });
         }
+
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvUser.setHasFixedSize(true);
         binding.rvUser.setAdapter(userGitAdapter);
+
+        setMode(tabName);
+
+
+    }
+
+    public void setMode(String tab) {
+        switch (tab) {
+            case TAB_FOLLOWING:
+                //Toast.makeText(getContext(),"TAB FOLLOWING", Toast.LENGTH_LONG).show();
+
+                break;
+            case TAB_FOLLOWERS:
+                //Toast.makeText(getContext(),"TAB FOLLOWERS", Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 
     @Override
