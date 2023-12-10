@@ -16,8 +16,8 @@ public class MainUserGitViewModel extends ViewModel {
         this.gitUserRepository = gitUserRepository;
     }
 
-    public LiveData<Result<List<UserGitEntity>>> getUserGit(){
-        return gitUserRepository.getUserGit();
+    public LiveData<Result<List<UserGitEntity>>> getUserGit(String query){
+        return gitUserRepository.getUserGit(query);
     }
 
     public LiveData<List<UserGitEntity>> getBookmark(){

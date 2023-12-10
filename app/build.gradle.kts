@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.6.1")
     implementation("com.loopj.android:android-async-http:1.4.9")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

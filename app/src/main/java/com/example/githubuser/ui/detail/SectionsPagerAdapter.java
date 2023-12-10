@@ -32,7 +32,6 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
         } else {
             bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWERS);
         }
-
         fragment.setArguments(bundle);
         return fragment;
     }

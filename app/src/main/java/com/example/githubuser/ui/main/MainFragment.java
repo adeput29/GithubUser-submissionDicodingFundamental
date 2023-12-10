@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.githubuser.R;
 import com.example.githubuser.database.Result;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.databinding.FragmentMainBinding;
@@ -22,6 +23,12 @@ import java.util.List;
 public class MainFragment extends Fragment {
 
     FragmentMainBinding binding;
+    public static final String EXTRA_SEARCH = "extra_search";
+    public String search_text;
+
+    public MainFragment(String text) {
+        this.search_text = text;
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -38,7 +45,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        viewModel.getUserGit().observe(getViewLifecycleOwner(), result -> {
+        viewModel.getUserGit(search_text).observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
                 if (result instanceof Result.Loading){
                     binding.progressBar.setVisibility(View.VISIBLE);

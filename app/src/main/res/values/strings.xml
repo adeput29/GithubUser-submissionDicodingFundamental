@@ -15,4 +15,6 @@
     <string name="title_activity_detail_user">DetailUser</string>
     <string name="home">home</string>
     <string name="bookmark">bookmark</string>
+    <string name="cari_username">Cari Username</string>
+    <string name="dark_mode">Dark Mode</string>
 </resources>
