@@ -24,15 +24,15 @@ public class MainFragment extends Fragment {
 
     FragmentMainBinding binding;
     public static final String EXTRA_SEARCH = "extra_search";
-    public String search_text;
+    public String search_text = "";
 
-    public MainFragment(String text) {
-        this.search_text = text;
+    public MainFragment() {
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
         MainViewModelFactory factory = MainViewModelFactory.getInstance(getActivity());
         MainUserGitViewModel viewModel = new ViewModelProvider(this, factory).get(MainUserGitViewModel.class);
@@ -67,6 +67,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        search_text = getArguments().getString(EXTRA_SEARCH);
         binding = FragmentMainBinding.inflate(inflater);
         return binding.getRoot();
     }

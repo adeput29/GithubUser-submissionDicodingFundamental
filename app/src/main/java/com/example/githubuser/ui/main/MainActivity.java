@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -51,12 +54,18 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.topAppBar);
         setActionBarTitle(title);
 
-        /*if (binding.searchView.getText().toString().equals("")){
+
+        Bundle bundle = new Bundle();
+        bundle.putString(MainFragment.EXTRA_SEARCH, "a");
+        MainFragment mainFragment = new MainFragment();
+        mainFragment.setArguments(bundle);
+
+        if (binding.searchView.getText().toString().equals("")){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new MainFragment(""))
+                    .replace(R.id.fragment_container, mainFragment)
                     .addToBackStack(null)
                     .commit();
-        }*/
+        }
         RxDataStore<Preferences> dataStore = new RxPreferenceDataStoreBuilder(this, "theme_setting").build();
         SettingPreferences pref = SettingPreferences.getInstance(dataStore);
         MainViewModel mainViewModel = new ViewModelProvider(this, new ViewModelFactory(pref)).get(MainViewModel.class);
@@ -74,32 +83,22 @@ public class MainActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 binding.searchBar.setText(binding.searchView.getText());
                 binding.searchView.hide();
-                if (binding.searchView.getText().toString().equals("")){
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, new MainFragment("a"))
-                            .addToBackStack(null)
-                            .commit();
-                }else{
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, new MainFragment(binding.searchView.getText().toString()))
-                            .addToBackStack(null)
-                            .commit();
+                String getString = binding.searchView.getText().toString();
+                if (getString.equals("")){
+                    getString = "a";
                 }
-
+                Bundle bundle = new Bundle();
+                bundle.putString(MainFragment.EXTRA_SEARCH, getString);
+                MainFragment mainFragment = new MainFragment();
+                mainFragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, mainFragment)
+                        .addToBackStack(null)
+                        .commit();
                 return false;
             }
         });
 
-
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new MainFragment(""))
-                        .addToBackStack(null)
-                        .commit();
-            }
-        }, 5000);
     }
 
     @Override
