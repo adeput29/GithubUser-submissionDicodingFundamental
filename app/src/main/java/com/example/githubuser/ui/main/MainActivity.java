@@ -2,9 +2,16 @@ package com.example.githubuser.ui.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
+import androidx.datastore.rxjava3.RxDataStore;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +23,13 @@ import android.widget.Toast;
 import com.example.githubuser.R;
 import com.example.githubuser.databinding.ActivityMainBinding;
 import com.example.githubuser.ui.detail.DetailUser;
+import com.example.githubuser.ui.setting.MainViewModel;
 import com.example.githubuser.ui.setting.SettingActivity;
+import com.example.githubuser.ui.setting.SettingPreferences;
+import com.example.githubuser.ui.setting.ViewModelFactory;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         }*/
+        RxDataStore<Preferences> dataStore = new RxPreferenceDataStoreBuilder(this, "theme_setting").build();
+        SettingPreferences pref = SettingPreferences.getInstance(dataStore);
+        MainViewModel mainViewModel = new ViewModelProvider(this, new ViewModelFactory(pref)).get(MainViewModel.class);
+        mainViewModel.getThemeSettings().observe(this, isDarkModeActive -> {
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
 
         binding.searchView.setupWithSearchBar(binding.searchBar);
         binding.searchView.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -68,6 +91,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new MainFragment(""))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        }, 5000);
     }
 
     @Override

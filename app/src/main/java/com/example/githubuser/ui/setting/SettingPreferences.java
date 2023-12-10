@@ -19,7 +19,7 @@ public class SettingPreferences {
 
     private static volatile SettingPreferences INSTANCE;
 
-    static SettingPreferences getInstance(final RxDataStore<Preferences> dataStore) {
+    public static SettingPreferences getInstance(final RxDataStore<Preferences> dataStore) {
         if (INSTANCE == null) {
             synchronized (SettingPreferences.class) {
                 if (INSTANCE == null) {
