@@ -22,7 +22,7 @@ public class SettingActivity extends AppCompatActivity {
 
         SwitchMaterial switchTheme = findViewById(R.id.switch_theme);
 
-        RxDataStore<Preferences> dataStore = new RxPreferenceDataStoreBuilder(this, "settings").build();
+        RxDataStore<Preferences> dataStore = new RxPreferenceDataStoreBuilder(this, "theme_setting").build();
         SettingPreferences pref = SettingPreferences.getInstance(dataStore);
 
         MainViewModel mainViewModel = new ViewModelProvider(this, new ViewModelFactory(pref)).get(MainViewModel.class);

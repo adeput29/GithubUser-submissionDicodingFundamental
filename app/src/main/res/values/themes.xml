@@ -3,6 +3,8 @@
     <style name="Base.Theme.GithubUser" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Primary brand color. -->
+
     </style>
 
     <style name="Theme.GithubUser" parent="Base.Theme.GithubUser" />
@@ -15,4 +17,29 @@
     <style name="Theme.GithubUser.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.GithubUser.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="TextContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="fontFamily">@font/open_sans</item>
+    </style>
+
+    <style name="TextContent.Title">
+        <item name="fontFamily">@font/open_sans_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextContent.TitleDetails">
+        <item name="fontFamily">@font/open_sans_bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="TextContent.SubtitleDetails">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/detail_text</item>
+    </style>
+
+    <style name="TextContent.Details">
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

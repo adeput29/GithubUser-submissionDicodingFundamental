@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.topAppBar);
         setActionBarTitle(title);
 
-        if (binding.searchView.getText().toString().equals("")){
+        /*if (binding.searchView.getText().toString().equals("")){
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new MainFragment(""))
                     .addToBackStack(null)
                     .commit();
-        }
+        }*/
 
         binding.searchView.setupWithSearchBar(binding.searchBar);
         binding.searchView.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menuPengaturan) {
-            Intent i = new Intent(this, SettingActivity.class);
-            startActivity(i);
+            Intent MenuSetting = new Intent(this, SettingActivity.class);
+            startActivity(MenuSetting);
             return super.onOptionsItemSelected(item);
         } else if (item.getItemId() == R.id.menuFavorite) {
             Intent i = new Intent(this, DetailUser.class);
