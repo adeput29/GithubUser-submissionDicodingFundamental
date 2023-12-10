@@ -26,9 +26,9 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
         Bundle bundle = new Bundle();
         bundle.putString(UserFragment.USER_SELECTED,UserSelected);
         if (position == 0) {
-            bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWERS);
-        } else {
             bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWING);
+        } else {
+            bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWERS);
         }
 
         fragment.setArguments(bundle);

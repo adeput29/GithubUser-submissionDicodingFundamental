@@ -20,6 +20,10 @@ public class UserGitViewModel extends ViewModel {
         return gitUserRepository.getFollowing(a);
     }
 
+    public LiveData<Result<List<UserGitEntity>>> getUserFollowers(String a){
+        return gitUserRepository.getFollowers(a);
+    }
+
     public LiveData<List<UserGitEntity>> getBookmark(){
         return gitUserRepository.getBookmark();
     }
