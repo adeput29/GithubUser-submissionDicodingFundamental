@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -15,7 +16,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
+import com.example.githubuser.database.local.entity.UserGitSelect;
 import com.example.githubuser.databinding.ItemListviewBinding;
+import com.example.githubuser.ui.detail.DetailUser;
 
 public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAdapter.MyViewHolder> {
     private final MainUserGitAdapter.OnItemClickCallback onItemClickCallback;
@@ -70,9 +73,16 @@ public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAd
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(binding.imgUser);
             itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(userGitEntity.getNamaUser()));
-                itemView.getContext().startActivity(intent);
+
+                UserGitSelect userGitSelect = new UserGitSelect();
+                userGitSelect.setNamaUser(userGitEntity.getNamaUser());
+                userGitSelect.setUserName(userGitEntity.getUsername());
+                userGitSelect.setFollowers(userGitEntity.getFollowers_url());
+                userGitSelect.setFollowing(userGitEntity.getFollowing_url());
+                userGitSelect.setAvatar_url(userGitEntity.getAvatar_url());
+                Intent moveWithObjectIntent = new Intent(itemView.getContext(), DetailUser.class);
+                moveWithObjectIntent.putExtra(DetailUser.EXTRA_USER, userGitSelect);
+                itemView.getContext().startActivity(moveWithObjectIntent);
             });
         }
     }

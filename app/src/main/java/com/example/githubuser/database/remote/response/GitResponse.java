@@ -14,6 +14,7 @@ public class GitResponse {
 	@SerializedName("items")
 	private List<GitItems> items;
 
+
 	public int getTotalCount(){
 		return totalCount;
 	}

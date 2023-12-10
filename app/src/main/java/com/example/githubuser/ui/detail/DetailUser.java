@@ -2,7 +2,12 @@ package com.example.githubuser.ui.detail;
 
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
+import com.example.githubuser.database.Result;
+import com.example.githubuser.database.local.entity.UserGitEntity;
+import com.example.githubuser.database.local.entity.UserGitSelect;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -15,12 +20,17 @@ import android.view.View;
 import com.example.githubuser.databinding.ActivityDetailUserBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.List;
+
 public class DetailUser extends AppCompatActivity {
+
+    public static final String EXTRA_USER = "extra_user";
+    public String UserSelect;
 
     private ActivityDetailUserBinding binding;
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.home, R.string.bookmark};
+    private static final int[] TAB_TITLES = new int[]{R.string.following, R.string.followers};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +39,16 @@ public class DetailUser extends AppCompatActivity {
         binding = ActivityDetailUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+
+        UserGitSelect userGitSelect;
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+        userGitSelect = getIntent().getParcelableExtra(EXTRA_USER, UserGitSelect.class);
+        } else {
+            userGitSelect = getIntent().getParcelableExtra(EXTRA_USER);
+        }
+        UserSelect = userGitSelect.getUserName();
+
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, UserSelect);
         binding.viewPager.setAdapter(sectionsPagerAdapter);
         new TabLayoutMediator(binding.tabs, binding.viewPager,
                 (tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position]))
@@ -39,8 +58,16 @@ public class DetailUser extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
 
-        FloatingActionButton fab = binding.fab;
+        binding.tvUsername.setText(UserSelect);
+        binding.tvnamaUser.setText(userGitSelect.getNamaUser());
+        binding.tvFollowers.setText(userGitSelect.getFollowers());
+        binding.tvFollowing.setText(userGitSelect.getFollowing());
+        Glide.with(this.getApplicationContext())
+                .load(userGitSelect.getAvatar_url())
+                .apply(new RequestOptions())
+                .into(binding.imgDetailUser);
 
+        FloatingActionButton fab = binding.fab;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

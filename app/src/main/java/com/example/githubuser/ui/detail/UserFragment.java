@@ -23,8 +23,13 @@ import java.util.List;
 public class UserFragment extends Fragment {
 
     public static final String ARG_TAB = "tab_name";
-    public static final String TAB_USER = "user";
-    public static final String TAB_BOOKMARK = "bookmark";
+    public static final String TAB_FOLLOWERS = "FOLLOWERS";
+    public static final String TAB_FOLLOWING = "FOLLOWING";
+
+    public static final String USER_SELECTED = "user_selected";
+
+    private String UserSelected;
+
     private FragmentUserBinding binding;
     private String tabName;
 
@@ -34,6 +39,8 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUserBinding.inflate(inflater);
+
+
         return binding.getRoot();
     }
 
@@ -43,6 +50,7 @@ public class UserFragment extends Fragment {
 
         if (getArguments() != null) {
             tabName = getArguments().getString(ARG_TAB);
+            UserSelected = getArguments().getString(USER_SELECTED);
         }
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
@@ -56,8 +64,8 @@ public class UserFragment extends Fragment {
             }
         });
 
-        if (tabName.equals(TAB_USER)) {
-            viewModel.getUserGit().observe(getViewLifecycleOwner(), result -> {
+        if (tabName.equals(TAB_FOLLOWERS)) {
+            viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
@@ -71,13 +79,12 @@ public class UserFragment extends Fragment {
                     }
                 }
             });
-        } else if (tabName.equals(TAB_BOOKMARK)){
+        } else if (tabName.equals(TAB_FOLLOWING)){
             viewModel.getBookmark().observe(getViewLifecycleOwner(), bookmarked -> {
                 binding.progressBar.setVisibility(View.GONE);
                 userGitAdapter.submitList(bookmarked);
             });
         }
-
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvUser.setHasFixedSize(true);
         binding.rvUser.setAdapter(userGitAdapter);

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
+import com.example.githubuser.databinding.ActivityDetailUserBinding;
 import com.example.githubuser.databinding.ItemListviewBinding;
 
 public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.MyViewHolder> {

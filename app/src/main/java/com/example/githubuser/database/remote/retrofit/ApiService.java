@@ -1,5 +1,8 @@
 package com.example.githubuser.database.remote.retrofit;
+import com.example.githubuser.database.remote.response.GitItems;
 import com.example.githubuser.database.remote.response.GitResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,13 +18,13 @@ public interface ApiService {
 
     @GET("users/{login}")
     @Headers({"Authorization: token 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"})
-    Call<GitResponse> getUserGitDetail(@Path("login") String login);
+    Call<GitItems> getUserGitDetail(@Path("login") String login);
 
     @GET("users/{login}/following")
     @Headers({"Authorization: token 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"})
-    Call<GitResponse> getUserGitFollowing(@Path("login") String login);
+    Call<List<GitItems>> getUserGitFollowing(@Path("login") String login);
 
     @GET("users/{login}/followers")
     @Headers({"Authorization: token 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"})
-    Call<GitResponse> getUserGitFollowers(@Path("login") String login);
+    Call<List<GitItems>> getUserGitFollowers(@Path("login") String login);
 }
