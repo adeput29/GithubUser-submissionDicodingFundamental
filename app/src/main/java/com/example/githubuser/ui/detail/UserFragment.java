@@ -122,21 +122,25 @@ public class UserFragment extends Fragment {
         }
 
 
-
+        Toast.makeText(getContext(), String.valueOf(userID),Toast.LENGTH_LONG).show();
         Boolean isFavorite = true;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isFavorite) {
+                    int Catch = userID;
+                    viewModel.saveBookmark(Catch);
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
                     Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    viewModel.saveBookmark(userID);
+
                 } else {
+                    int Catch = userID;
+                    viewModel.deleteBookmark(Catch);
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
                     Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    viewModel.deleteBookmark(userID);
+
                 }
 
             }
