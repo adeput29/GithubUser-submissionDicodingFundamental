@@ -29,4 +29,7 @@ public interface UserGitDao {
 
     @Query("SELECT EXISTS(SELECT * FROM UserGit WHERE id = :id AND bookmark = 1)")
     Boolean isUserBookmark(int id);
+
+    @Query("UPDATE UserGit SET bookmark = 1 WHERE id = :id")
+    void addBookMark(int id);
 }

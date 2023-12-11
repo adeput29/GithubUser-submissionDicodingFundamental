@@ -35,4 +35,8 @@ public class UserGitViewModel extends ViewModel {
     public void deleteUser(UserGitEntity userGitEntity){
         gitUserRepository.setBookmark(userGitEntity, false);
     }
+
+    public void saveBookmark(int id){
+        gitUserRepository.addBookmark(id);
+    }
 }

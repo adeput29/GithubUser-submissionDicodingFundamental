@@ -238,4 +238,10 @@ public class GitUserRepository {
             userGitDao.updateUserGit(userGitEntity);
         });
     }
+
+    public void addBookmark(int id){
+        appExecutors.diskIO().execute(() ->{
+            userGitDao.addBookMark(id);
+        });
+    }
 }

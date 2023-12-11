@@ -46,6 +46,12 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
         UserGitEntity userGitEntity = getItem(position);
         holder.bind(userGitEntity);
 
+        if (userGitEntity.getBookmark()) {
+           Toast.makeText(holder.itemView.getContext(), "user bookmark",Toast.LENGTH_LONG).show();
+        } else {
+            //Toast.makeText(holder.itemView.getContext(), "bukan user bookmark",Toast.LENGTH_LONG).show();
+        }
+
         /*ivBookmark.setOnClickListener(view -> {
             onItemClickCallback.onBookmarkClick(userGitEntity);
         });*/
@@ -70,6 +76,17 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
                     .load(userGitEntity.getAvatar_url())
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(binding.imgUser);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (userGitEntity.getBookmark()) {
+                        Toast.makeText(itemView.getContext(), "user bookmark",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(itemView.getContext(), "bukan user bookmark",Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
         }
     }
 

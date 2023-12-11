@@ -28,6 +28,7 @@ public class DetailUser extends AppCompatActivity {
     public static final String EXTRA_USER = "extra_user";
     public String UserSelect;
 
+
     private ActivityDetailUserBinding binding;
 
     @StringRes
@@ -48,7 +49,6 @@ public class DetailUser extends AppCompatActivity {
             userGitSelect = getIntent().getParcelableExtra(EXTRA_USER);
         }
         UserSelect = userGitSelect.getUserName();
-
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, UserSelect);
         binding.viewPager.setAdapter(sectionsPagerAdapter);
         new TabLayoutMediator(binding.tabs, binding.viewPager,

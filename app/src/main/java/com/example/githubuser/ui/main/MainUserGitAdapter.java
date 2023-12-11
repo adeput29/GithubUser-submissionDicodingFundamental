@@ -69,7 +69,6 @@ public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAd
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(binding.imgUser);
             itemView.setOnClickListener(v -> {
-
                 UserGitSelect userGitSelect = new UserGitSelect();
                 userGitSelect.setNamaUser(userGitEntity.getNamaUser());
                 userGitSelect.setUserName(userGitEntity.getUsername());

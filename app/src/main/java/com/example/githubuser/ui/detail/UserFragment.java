@@ -52,6 +52,7 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FloatingActionButton fab = binding.fab;
 
         if (getArguments() != null) {
             tabName = getArguments().getString(ARG_TAB);
@@ -70,7 +71,6 @@ public class UserFragment extends Fragment {
         });
 
         if (tabName.equals(TAB_FOLLOWING)) {
-            Toast.makeText(getContext(),"TAB FOLLOWING", Toast.LENGTH_LONG).show();
             viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
@@ -86,7 +86,6 @@ public class UserFragment extends Fragment {
                 }
             });
         } else if (tabName.equals(TAB_FOLLOWERS)){
-            Toast.makeText(getContext(),"TAB FOLLOWERS", Toast.LENGTH_LONG).show();
             viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
@@ -109,7 +108,7 @@ public class UserFragment extends Fragment {
 
         setMode(tabName);
 
-        FloatingActionButton fab = binding.fab;
+
         Boolean isFavorite = true;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +117,7 @@ public class UserFragment extends Fragment {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
                     Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-
+                    viewModel.saveBookmark(59715);
                 } else {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
                     Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
@@ -147,4 +146,6 @@ public class UserFragment extends Fragment {
         super.onDestroy();
         binding = null;
     }
+
+
 }

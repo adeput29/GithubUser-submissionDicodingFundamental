@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.ui.detail.UserFragment;
 
 public class SectionsPagerAdapter extends FragmentStateAdapter {
