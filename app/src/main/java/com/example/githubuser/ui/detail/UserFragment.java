@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.example.githubuser.R;
 import com.example.githubuser.database.Result;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.databinding.FragmentUserBinding;
@@ -109,11 +111,20 @@ public class UserFragment extends Fragment {
         setMode(tabName);
 
         FloatingActionButton fab = binding.fab;
+        Boolean isFavorite = true;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Buat Favorite", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (isFavorite) {
+                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+                    Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+                    Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
             }
         });
 

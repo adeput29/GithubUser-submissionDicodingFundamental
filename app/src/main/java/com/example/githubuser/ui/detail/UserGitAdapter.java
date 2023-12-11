@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,10 +18,14 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.databinding.ActivityDetailUserBinding;
+import com.example.githubuser.databinding.FragmentUserBinding;
 import com.example.githubuser.databinding.ItemListviewBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.MyViewHolder> {
     private final OnItemClickCallback onItemClickCallback;
+    FragmentUserBinding binding;
 
     interface OnItemClickCallback {
         void onBookmarkClick(UserGitEntity data);
@@ -42,13 +48,25 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
         UserGitEntity userGitEntity = getItem(position);
         holder.bind(userGitEntity);
 
-        /*ImageView ivBookmark = holder.binding.ivBookmark;
-        if (userGitEntity.getBookmark()) {
-            ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.getContext(), R.drawable.ic_bookmarked_white));
-        } else {
-            ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.getContext(), R.drawable.ic_bookmark_white));
-        }
 
+        /*FloatingActionButton fab =  binding.fab;
+        Boolean isFavorite = true;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isFavorite) {
+                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+                    Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+                    Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
+            }
+        }); */
+        /*
         ivBookmark.setOnClickListener(view -> {
             onItemClickCallback.onBookmarkClick(userGitEntity);
         });*/
@@ -70,11 +88,6 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
                     .load(userGitEntity.getAvatar_url())
                     .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
                     .into(binding.imgUser);
-            itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(userGitEntity.getNamaUser()));
-                itemView.getContext().startActivity(intent);
-            });
         }
     }
 
