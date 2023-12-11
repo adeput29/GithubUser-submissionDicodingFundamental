@@ -1,11 +1,10 @@
 package com.example.githubuser.ui.detail;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -17,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
-import com.example.githubuser.databinding.ActivityDetailUserBinding;
 import com.example.githubuser.databinding.FragmentUserBinding;
 import com.example.githubuser.databinding.ItemListviewBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,7 +23,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.MyViewHolder> {
     private final OnItemClickCallback onItemClickCallback;
-    FragmentUserBinding binding;
 
     interface OnItemClickCallback {
         void onBookmarkClick(UserGitEntity data);
@@ -40,6 +37,7 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemListviewBinding binding = ItemListviewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
         return new MyViewHolder(binding);
     }
 
@@ -48,29 +46,12 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
         UserGitEntity userGitEntity = getItem(position);
         holder.bind(userGitEntity);
 
-
-        /*FloatingActionButton fab =  binding.fab;
-        Boolean isFavorite = true;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isFavorite) {
-                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
-                    Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } else {
-                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
-                    Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-
-            }
-        }); */
-        /*
-        ivBookmark.setOnClickListener(view -> {
+        /*ivBookmark.setOnClickListener(view -> {
             onItemClickCallback.onBookmarkClick(userGitEntity);
         });*/
     }
+
+
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 

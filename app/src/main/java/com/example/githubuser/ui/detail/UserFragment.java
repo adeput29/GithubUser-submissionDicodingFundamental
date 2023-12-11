@@ -119,6 +119,7 @@ public class UserFragment extends Fragment {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
                     Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+
                 } else {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
                     Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
