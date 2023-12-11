@@ -49,6 +49,7 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
         /*ivBookmark.setOnClickListener(view -> {
             onItemClickCallback.onBookmarkClick(userGitEntity);
         });*/
+        //onItemClickCallback.onBookmarkClick(userGitEntity);
     }
 
 

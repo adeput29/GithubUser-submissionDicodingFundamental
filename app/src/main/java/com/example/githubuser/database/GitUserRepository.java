@@ -238,7 +238,4 @@ public class GitUserRepository {
             userGitDao.updateUserGit(userGitEntity);
         });
     }
-
-
-
 }
