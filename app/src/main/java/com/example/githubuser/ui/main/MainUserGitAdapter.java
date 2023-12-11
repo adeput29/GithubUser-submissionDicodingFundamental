@@ -70,6 +70,7 @@ public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAd
                     .into(binding.imgUser);
             itemView.setOnClickListener(v -> {
                 UserGitSelect userGitSelect = new UserGitSelect();
+                userGitSelect.setId(userGitEntity.getId());
                 userGitSelect.setNamaUser(userGitEntity.getNamaUser());
                 userGitSelect.setUserName(userGitEntity.getUsername());
                 userGitSelect.setFollowers(userGitEntity.getFollowers_url());

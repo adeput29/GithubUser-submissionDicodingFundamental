@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.view.View;
+import android.widget.Toast;
 
 
 import com.example.githubuser.databinding.ActivityDetailUserBinding;
@@ -27,6 +28,9 @@ public class DetailUser extends AppCompatActivity {
 
     public static final String EXTRA_USER = "extra_user";
     public String UserSelect;
+
+    public int id;
+
 
 
     private ActivityDetailUserBinding binding;
@@ -49,7 +53,8 @@ public class DetailUser extends AppCompatActivity {
             userGitSelect = getIntent().getParcelableExtra(EXTRA_USER);
         }
         UserSelect = userGitSelect.getUserName();
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, UserSelect);
+        id = userGitSelect.getId();
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, UserSelect, id);
         binding.viewPager.setAdapter(sectionsPagerAdapter);
         new TabLayoutMediator(binding.tabs, binding.viewPager,
                 (tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position]))

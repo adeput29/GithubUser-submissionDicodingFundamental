@@ -244,4 +244,16 @@ public class GitUserRepository {
             userGitDao.addBookMark(id);
         });
     }
+
+    public void removeBookmark(int id){
+        appExecutors.diskIO().execute(() ->{
+            userGitDao.removeBookMark(id);
+        });
+    }
+
+    public void isBookmark(int id){
+        appExecutors.diskIO().execute(() ->{
+            userGitDao.isUserBookmark(id);
+        });
+    }
 }

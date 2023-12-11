@@ -32,4 +32,7 @@ public interface UserGitDao {
 
     @Query("UPDATE UserGit SET bookmark = 1 WHERE id = :id")
     void addBookMark(int id);
+
+    @Query("UPDATE UserGit SET bookmark = 0 WHERE id = :id")
+    void removeBookMark(int id);
 }

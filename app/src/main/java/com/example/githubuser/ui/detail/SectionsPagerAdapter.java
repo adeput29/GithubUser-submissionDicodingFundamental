@@ -15,11 +15,13 @@ import com.example.githubuser.ui.detail.UserFragment;
 public class SectionsPagerAdapter extends FragmentStateAdapter {
 
     private String UserSelected;
+    private int userID;
 
 
-    SectionsPagerAdapter(AppCompatActivity activity, String UserSelected) {
+    SectionsPagerAdapter(AppCompatActivity activity, String UserSelected, int userID) {
         super(activity);
         this.UserSelected = UserSelected;
+        this.userID = userID;
     }
 
     @NonNull
@@ -28,6 +30,7 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
         UserFragment fragment = new UserFragment();
         Bundle bundle = new Bundle();
         bundle.putString(UserFragment.USER_SELECTED,UserSelected);
+        bundle.putInt(UserFragment.USER_ID, userID);
         if (position == 0) {
             bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWING);
         } else {

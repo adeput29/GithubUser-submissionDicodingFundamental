@@ -6,6 +6,17 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class UserGitSelect implements Parcelable {
+
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     String NamaUser;
     String UserName;
     String Followers;
@@ -33,6 +44,7 @@ public class UserGitSelect implements Parcelable {
         Following = in.readString();
         bookmark = in.readByte() != 0;
         avatar_url = in.readString();
+        id = in.readInt();
     }
 
     public static final Creator<UserGitSelect> CREATOR = new Creator<UserGitSelect>() {
@@ -100,5 +112,6 @@ public class UserGitSelect implements Parcelable {
         dest.writeString(Following);
         dest.writeByte((byte) (bookmark ? 1 : 0));
         dest.writeString(avatar_url);
+        dest.writeInt(id);
     }
 }
