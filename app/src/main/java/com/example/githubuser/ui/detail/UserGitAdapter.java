@@ -47,7 +47,7 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
         holder.bind(userGitEntity);
 
         if (userGitEntity.getBookmark()) {
-           Toast.makeText(holder.itemView.getContext(), "user bookmark",Toast.LENGTH_LONG).show();
+           //Toast.makeText(holder.itemView.getContext(), "user bookmark",Toast.LENGTH_LONG).show();
         } else {
             //Toast.makeText(holder.itemView.getContext(), "bukan user bookmark",Toast.LENGTH_LONG).show();
         }

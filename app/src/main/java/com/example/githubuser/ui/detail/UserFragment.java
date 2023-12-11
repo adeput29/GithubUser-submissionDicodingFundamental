@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -25,7 +26,6 @@ import java.util.List;
 
 
 public class UserFragment extends Fragment {
-
     public static final String ARG_TAB = "tab_name";
     public static final String TAB_FOLLOWERS = "FOLLOWERS";
     public static final String TAB_FOLLOWING = "FOLLOWING";
@@ -33,6 +33,8 @@ public class UserFragment extends Fragment {
     public static final String USER_SELECTED = "user_selected";
 
     private String UserSelected;
+
+    UserGitViewModel userGitViewModel;
 
     private FragmentUserBinding binding;
     private String tabName;
@@ -60,18 +62,18 @@ public class UserFragment extends Fragment {
         }
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
-        UserGitViewModel viewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
+        userGitViewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
 
         UserGitAdapter userGitAdapter = new UserGitAdapter(userGitEntity -> {
             if (userGitEntity.getBookmark()) {
-                viewModel.deleteUser(userGitEntity);
+                userGitViewModel.deleteUser(userGitEntity);
             } else {
-                viewModel.saveUser(userGitEntity);
+                userGitViewModel.saveUser(userGitEntity);
             }
         });
 
         if (tabName.equals(TAB_FOLLOWING)) {
-            viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            userGitViewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
@@ -86,7 +88,7 @@ public class UserFragment extends Fragment {
                 }
             });
         } else if (tabName.equals(TAB_FOLLOWERS)){
-            viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            userGitViewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
@@ -117,7 +119,7 @@ public class UserFragment extends Fragment {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
                     Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    viewModel.saveBookmark(59715);
+                    userGitViewModel.saveBookmark(59715);
                 } else {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
                     Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
@@ -146,6 +148,5 @@ public class UserFragment extends Fragment {
         super.onDestroy();
         binding = null;
     }
-
 
 }
