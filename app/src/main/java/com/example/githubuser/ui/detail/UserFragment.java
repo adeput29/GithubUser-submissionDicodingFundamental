@@ -104,7 +104,7 @@ public class UserFragment extends Fragment {
                     } else if (result instanceof Result.Error){
                         binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
-                    }
+                    } pisahin list view atau entity agar tidak bercampur mana list user home, list following lost followers contohnya seperti listfavorite
                 }
             });
         }
