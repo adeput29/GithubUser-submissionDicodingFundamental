@@ -17,4 +17,6 @@
     <string name="bookmark">bookmark</string>
     <string name="cari_username">Cari Username</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="favorite_user">Favorite UserGit</string>
+    
 </resources>
