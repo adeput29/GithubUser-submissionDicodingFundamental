@@ -34,8 +34,6 @@ public class UserFragment extends Fragment {
 
     private String UserSelected;
 
-    UserGitViewModel userGitViewModel;
-
     private FragmentUserBinding binding;
     private String tabName;
 
@@ -46,8 +44,6 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUserBinding.inflate(inflater);
-
-
         return binding.getRoot();
     }
 
@@ -62,18 +58,18 @@ public class UserFragment extends Fragment {
         }
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
-        userGitViewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
+        UserGitViewModel viewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
 
         UserGitAdapter userGitAdapter = new UserGitAdapter(userGitEntity -> {
             if (userGitEntity.getBookmark()) {
-                userGitViewModel.deleteUser(userGitEntity);
+                viewModel.deleteUser(userGitEntity);
             } else {
-                userGitViewModel.saveUser(userGitEntity);
+                viewModel.saveUser(userGitEntity);
             }
         });
 
         if (tabName.equals(TAB_FOLLOWING)) {
-            userGitViewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
@@ -88,7 +84,7 @@ public class UserFragment extends Fragment {
                 }
             });
         } else if (tabName.equals(TAB_FOLLOWERS)){
-            userGitViewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
@@ -119,7 +115,7 @@ public class UserFragment extends Fragment {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
                     Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                    userGitViewModel.saveBookmark(59715);
+                    viewModel.saveBookmark(59715);
                 } else {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
                     Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
