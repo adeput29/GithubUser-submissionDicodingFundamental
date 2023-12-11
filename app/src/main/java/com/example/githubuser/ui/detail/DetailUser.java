@@ -13,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.view.View;
 
@@ -66,15 +67,6 @@ public class DetailUser extends AppCompatActivity {
                 .load(userGitSelect.getAvatar_url())
                 .apply(new RequestOptions())
                 .into(binding.imgDetailUser);
-
-        FloatingActionButton fab = binding.fab;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Buat Favorite", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override

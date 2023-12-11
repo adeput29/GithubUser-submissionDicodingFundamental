@@ -17,6 +17,8 @@ import com.example.githubuser.R;
 import com.example.githubuser.database.Result;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.databinding.FragmentMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 

@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.example.githubuser.database.Result;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.databinding.FragmentUserBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -106,6 +108,14 @@ public class UserFragment extends Fragment {
 
         setMode(tabName);
 
+        FloatingActionButton fab = binding.fab;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Buat Favorite", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
     }
 

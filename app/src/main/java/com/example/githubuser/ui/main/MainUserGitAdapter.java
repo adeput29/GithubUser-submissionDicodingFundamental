@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +20,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.entity.UserGitSelect;
+import com.example.githubuser.databinding.FragmentMainBinding;
 import com.example.githubuser.databinding.ItemListviewBinding;
 import com.example.githubuser.ui.detail.DetailUser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAdapter.MyViewHolder> {
     private final MainUserGitAdapter.OnItemClickCallback onItemClickCallback;
@@ -37,23 +43,13 @@ public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAd
     public MainUserGitAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemListviewBinding binding = ItemListviewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new MainUserGitAdapter.MyViewHolder(binding);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainUserGitAdapter.MyViewHolder holder, int position) {
         UserGitEntity userGitEntity = getItem(position);
         holder.bind(userGitEntity);
-
-        /*ImageView ivBookmark = holder.binding.ivBookmark;
-        if (userGitEntity.getBookmark()) {
-            ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.getContext(), R.drawable.ic_bookmarked_white));
-        } else {
-            ivBookmark.setImageDrawable(ContextCompat.getDrawable(ivBookmark.getContext(), R.drawable.ic_bookmark_white));
-        }
-
-        ivBookmark.setOnClickListener(view -> {
-            onItemClickCallback.onBookmarkClick(userGitEntity);
-        });*/
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
