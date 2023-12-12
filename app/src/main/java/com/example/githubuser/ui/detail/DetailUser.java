@@ -67,10 +67,8 @@ public class DetailUser extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
 
-        binding.tvUsername.setText(UserSelect);
         binding.tvnamaUser.setText(userGitSelect.getNamaUser());
-        binding.tvFollowers.setText(userGitSelect.getFollowers());
-        binding.tvFollowing.setText(userGitSelect.getFollowing());
+        binding.tvUserID.setText("ID: "+userGitSelect.getId());
         Glide.with(this.getApplicationContext())
                 .load(userGitSelect.getAvatar_url())
                 .apply(new RequestOptions())
