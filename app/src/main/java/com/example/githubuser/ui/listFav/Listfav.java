@@ -23,7 +23,6 @@ public class Listfav extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new ListViewFragment())
-                .addToBackStack(null)
                 .commit();
     }
 

@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                 mainFragment.setArguments(bundle);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, mainFragment)
-                        .addToBackStack(null)
                         .commit();
                 return false;
             }
