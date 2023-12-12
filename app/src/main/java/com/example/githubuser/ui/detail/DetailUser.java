@@ -1,26 +1,18 @@
 package com.example.githubuser.ui.detail;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
-import com.example.githubuser.database.Result;
-import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.entity.UserGitSelect;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 
 import com.example.githubuser.databinding.ActivityDetailUserBinding;

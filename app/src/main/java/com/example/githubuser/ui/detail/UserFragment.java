@@ -26,6 +26,7 @@ import com.example.githubuser.databinding.FragmentUserBinding;
 import com.example.githubuser.utils.AppExecutors;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -123,9 +124,6 @@ public class UserFragment extends Fragment {
             });
         }
 
-
-
-
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvUser.setHasFixedSize(true);
         binding.rvUser.setAdapter(userGitAdapter);
@@ -138,17 +136,18 @@ public class UserFragment extends Fragment {
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
                     Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    isBookmark = false;
                 } else {
                     int Catch = userID;
                     viewModel.saveBookmark(Catch);
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
                     Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                    isBookmark = true;
                 }
             }
         });
     }
-
 
 
     @Override

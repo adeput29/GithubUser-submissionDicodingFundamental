@@ -1,16 +1,11 @@
 package com.example.githubuser.ui.detail;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import com.example.githubuser.database.local.entity.UserGitEntity;
-import com.example.githubuser.ui.detail.UserFragment;
 
 public class SectionsPagerAdapter extends FragmentStateAdapter {
 
