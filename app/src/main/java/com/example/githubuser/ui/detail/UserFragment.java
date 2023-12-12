@@ -91,7 +91,7 @@ public class UserFragment extends Fragment {
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });a
         } else if (tabName.equals(TAB_FOLLOWERS)){
             viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
