@@ -43,10 +43,7 @@ public class UserGitViewModel extends ViewModel {
         gitUserRepository.removeBookmark(id);
     }
 
-
     public void isBookmark(int id){
         gitUserRepository.isBookmark(id);
     }
-
-
 }

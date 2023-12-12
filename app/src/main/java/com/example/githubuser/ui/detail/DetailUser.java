@@ -31,6 +31,8 @@ public class DetailUser extends AppCompatActivity {
 
     public int id;
 
+    public boolean isBookmark;
+
 
 
     private ActivityDetailUserBinding binding;
@@ -54,7 +56,8 @@ public class DetailUser extends AppCompatActivity {
         }
         UserSelect = userGitSelect.getUserName();
         id = userGitSelect.getId();
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, UserSelect, id);
+        isBookmark = userGitSelect.isBookmark();
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, UserSelect, id, isBookmark);
         binding.viewPager.setAdapter(sectionsPagerAdapter);
         new TabLayoutMediator(binding.tabs, binding.viewPager,
                 (tab, position) -> tab.setText(getResources().getString(TAB_TITLES[position]))

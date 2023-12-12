@@ -17,11 +17,14 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
     private String UserSelected;
     private int userID;
 
+    private boolean isBookmark;
 
-    SectionsPagerAdapter(AppCompatActivity activity, String UserSelected, int userID) {
+
+    SectionsPagerAdapter(AppCompatActivity activity, String UserSelected, int userID, boolean isBookmark) {
         super(activity);
         this.UserSelected = UserSelected;
         this.userID = userID;
+        this.isBookmark = isBookmark;
     }
 
     @NonNull
@@ -31,6 +34,7 @@ public class SectionsPagerAdapter extends FragmentStateAdapter {
         Bundle bundle = new Bundle();
         bundle.putString(UserFragment.USER_SELECTED,UserSelected);
         bundle.putInt(UserFragment.USER_ID, userID);
+        bundle.putBoolean(UserFragment.USER_BOOLEAN, isBookmark);
         if (position == 0) {
             bundle.putString(UserFragment.ARG_TAB, UserFragment.TAB_FOLLOWING);
         } else {

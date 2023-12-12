@@ -37,9 +37,11 @@ public class UserFragment extends Fragment {
 
     public static final String USER_SELECTED = "user_selected";
     public static final String USER_ID = "user_id";
-
+    public static final String USER_BOOLEAN = "user_boolean";
     private String UserSelected;
     private int userID;
+
+    private boolean isBookmark;
 
     private FragmentUserBinding binding;
     private String tabName;
@@ -64,6 +66,8 @@ public class UserFragment extends Fragment {
             tabName = getArguments().getString(ARG_TAB);
             UserSelected = getArguments().getString(USER_SELECTED);
             userID = getArguments().getInt(USER_ID);
+            isBookmark = false;
+            isBookmark = getArguments().getBoolean(USER_BOOLEAN);
         }
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
@@ -76,6 +80,13 @@ public class UserFragment extends Fragment {
                 viewModel.saveUser(userGitEntity);
             }
         });
+
+
+        if (isBookmark) {
+            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+        } else {
+            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+        }
 
         if (tabName.equals(TAB_FOLLOWING)) {
             viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
@@ -91,7 +102,7 @@ public class UserFragment extends Fragment {
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            });a
+            });
         } else if (tabName.equals(TAB_FOLLOWERS)){
             viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
@@ -104,7 +115,7 @@ public class UserFragment extends Fragment {
                     } else if (result instanceof Result.Error){
                         binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
-                    } pisahin list view atau entity agar tidak bercampur mana list user home, list following lost followers contohnya seperti listfavorite
+                    } //pisahin list view atau entity agar tidak bercampur mana list user home, list following lost followers contohnya seperti listfavorite
                 }
             });
         }
@@ -114,33 +125,23 @@ public class UserFragment extends Fragment {
         setMode(tabName);
 
 
-        //viewModel.isBookmark(userID);
-        //Toast.makeText(getContext(), String.valueOf(userID),Toast.LENGTH_LONG).show();
-        Boolean isFav =  true;
-        if(isFav){
-            //Toast.makeText(getContext(), String.valueOf(userID),Toast.LENGTH_LONG).show();
-        }
-
-
         Toast.makeText(getContext(), String.valueOf(userID),Toast.LENGTH_LONG).show();
         Boolean isFavorite = true;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isFavorite) {
-                    int Catch = userID;
-                    viewModel.saveBookmark(Catch);
-                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
-                    Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                } else {
+                if (isBookmark) {
                     int Catch = userID;
                     viewModel.deleteBookmark(Catch);
                     fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
                     Snackbar.make(view, "Delete Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-
+                } else {
+                    int Catch = userID;
+                    viewModel.saveBookmark(Catch);
+                    fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+                    Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
 
             }
