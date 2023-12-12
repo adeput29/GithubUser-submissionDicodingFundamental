@@ -14,15 +14,9 @@ public class AppExecutors {
 
     private final Executor diskIO;
 
-    private final Executor networkIO;
-
-    private final Executor mainThread;
-
     @VisibleForTesting
     public AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
         this.diskIO = diskIO;
-        this.networkIO = networkIO;
-        this.mainThread = mainThread;
     }
 
     public AppExecutors() {
@@ -34,13 +28,6 @@ public class AppExecutors {
         return diskIO;
     }
 
-    public Executor networkIO() {
-        return networkIO;
-    }
-
-    public Executor mainThread() {
-        return mainThread;
-    }
 
     private static class MainThreadExecutor implements Executor {
         private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());

@@ -186,50 +186,6 @@ public class GitUserRepository {
         return result;
     }
 
-    public LiveData<Result<List<UserGitEntity>>> SelectedUser(String login) {
-        result.setValue(new Result.Loading<>());
-        Call<GitItems> client = apiService.getUserGitDetail(login);
-        client.enqueue(new Callback<GitItems>() {
-            @Override
-            public void onResponse(@NonNull Call<GitItems> call, @NonNull Response<GitItems> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        //List<GitItems> itemUser = response.body().getItems();
-                        ArrayList<UserGitEntity> newlist = new ArrayList<>();
-                        appExecutors.diskIO().execute(() -> {
-                            GitItems gitItems = response.body();
-                            Boolean isBookmarked = userGitDao.isUserBookmark(gitItems.getId());
-                            UserGitEntity list = new UserGitEntity(
-                                    gitItems.getId(),
-                                    isBookmarked,
-                                    gitItems.getAvatarUrl(),
-                                    gitItems.getFollowersUrl(),
-                                    gitItems.getFollowingUrl(),
-                                    gitItems.getLogin(),
-                                    gitItems.getName()
-                            );
-                            newlist.add(list);
-                            userGitDao.deleteAll();
-                            userGitDao.insertUserGit(newlist);
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<GitItems> call, @NonNull Throwable t) {
-                result.setValue(new Result.Error<>(t.getLocalizedMessage()));
-            }
-        });
-
-        LiveData<List<UserGitEntity>> localData = userGitDao.getUserGit();
-        if (localData != null) {
-            result.addSource(localData, newData -> result.setValue(new Result.Success<>(newData)));
-        }
-
-        return result;
-    }
-
     public LiveData<List<UserGitEntity>> getBookmark() {
         return userGitDao.getBookmark();
     }

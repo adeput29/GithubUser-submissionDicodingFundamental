@@ -27,7 +27,6 @@ import java.util.List;
 public class ListViewFragment extends Fragment {
     FragmentListViewBinding binding;
     public ListViewFragment() {
-        // Required empty public constructor
     }
 
     @Override

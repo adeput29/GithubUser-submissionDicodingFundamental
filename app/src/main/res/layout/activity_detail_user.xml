@@ -15,14 +15,11 @@
             app:menu="@menu/menu_share"
             app:title="@string/app_name" />
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,7 +32,7 @@
             android:layout_height="150dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             android:src="@drawable/ic_favorite_black_true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,12 +79,12 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="330dp"
+            android:layout_marginTop="315dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tabs"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
