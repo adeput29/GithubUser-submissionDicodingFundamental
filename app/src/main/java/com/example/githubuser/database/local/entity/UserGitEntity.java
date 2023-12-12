@@ -18,6 +18,9 @@ public class UserGitEntity implements Parcelable {
     @ColumnInfo(name = "bookmark")
     private boolean bookmark;
 
+    @ColumnInfo(name = "isMain")
+    private boolean isMain;
+
     @ColumnInfo(name = "avatar_url")
     private String avatar_url;
 
@@ -40,6 +43,7 @@ public class UserGitEntity implements Parcelable {
         following_url = in.readString();
         username = in.readString();
         namaUser = in.readString();
+        isMain = in.readBoolean();
     }
 
     public static final Creator<UserGitEntity> CREATOR = new Creator<UserGitEntity>() {
@@ -68,9 +72,10 @@ public class UserGitEntity implements Parcelable {
         parcel.writeString(following_url);
         parcel.writeString(username);
         parcel.writeString(namaUser);
+        parcel.writeBoolean(isMain);
     }
 
-    public UserGitEntity(int id, boolean bookmark, String avatar_url, String followers_url, String following_url, String username, String namaUser) {
+    public UserGitEntity(int id, boolean bookmark, String avatar_url, String followers_url, String following_url, String username, String namaUser, boolean isMain) {
         this.id = id;
         this.bookmark = bookmark;
         this.avatar_url = avatar_url;
@@ -78,6 +83,7 @@ public class UserGitEntity implements Parcelable {
         this.following_url = following_url;
         this.username = username;
         this.namaUser = namaUser;
+        this.isMain = isMain;
     }
 
 
@@ -136,5 +142,13 @@ public class UserGitEntity implements Parcelable {
 
     public void setNamaUser(String namaUser) {
         this.namaUser = namaUser;
+    }
+
+    public boolean isMain() {
+        return isMain;
+    }
+
+    public void setMain(boolean main) {
+        isMain = main;
     }
 }

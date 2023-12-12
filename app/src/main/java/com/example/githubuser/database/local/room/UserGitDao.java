@@ -24,6 +24,9 @@ public interface UserGitDao {
     @Query("SELECT * FROM UserGit where following_url = :user")
     LiveData<List<UserGitEntity>> SelectFollowing(String user);
 
+    @Query("SELECT * FROM UserGit where isMain = :isMain")
+    LiveData<List<UserGitEntity>> SelectMain(boolean isMain);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertUserGit(List<UserGitEntity> UserGit);
 

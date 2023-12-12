@@ -20,6 +20,10 @@ public class MainUserGitViewModel extends ViewModel {
         return gitUserRepository.getUserGit(query);
     }
 
+    public LiveData<List<UserGitEntity>> getMainUser(boolean user){
+        return gitUserRepository.getListMain(user);
+    }
+
     public LiveData<List<UserGitEntity>> getBookmark(){
         return gitUserRepository.getBookmark();
     }

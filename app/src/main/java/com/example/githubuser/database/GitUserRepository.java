@@ -65,7 +65,8 @@ public class GitUserRepository {
                                         gitItems.getFollowersUrl(),
                                         gitItems.getFollowingUrl(),
                                         gitItems.getLogin(),
-                                        gitItems.getLogin()
+                                        gitItems.getLogin(),
+                                        true
                                 );
                                 newlist.add(list);
                             }
@@ -112,7 +113,8 @@ public class GitUserRepository {
                                         login,
                                         gitItems.getFollowingUrl(),
                                         gitItems.getLogin(),
-                                        gitItems.getLogin()
+                                        gitItems.getLogin(),
+                                        false
                                 );
 
                                 newlist.add(list);
@@ -160,7 +162,8 @@ public class GitUserRepository {
                                         gitItems.getFollowersUrl(),
                                         login,
                                         gitItems.getLogin(),
-                                        gitItems.getLogin()
+                                        gitItems.getLogin(),
+                                        false
                                 );
 
                                 newlist.add(list);
@@ -195,6 +198,10 @@ public class GitUserRepository {
     }
     public LiveData<List<UserGitEntity>> getFollowingOffline(String user) {
         return userGitDao.SelectFollowing(user);
+    }
+
+    public LiveData<List<UserGitEntity>> getListMain(boolean isMain) {
+        return userGitDao.SelectMain(isMain);
     }
 
     public void setBookmark(UserGitEntity userGitEntity, boolean bookmarkState) {

@@ -53,8 +53,10 @@ public class MainFragment extends Fragment {
                     binding.progressBar.setVisibility(View.VISIBLE);
                 } else if (result instanceof Result.Success){
                     binding.progressBar.setVisibility(View.GONE);
-                    List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
-                    userGitAdapter.submitList(userData);
+                    viewModel.getMainUser(true).observe(getViewLifecycleOwner(), listUserMain -> {
+                        binding.progressBar.setVisibility(View.GONE);
+                        userGitAdapter.submitList(listUserMain);
+                    });
                 } else if (result instanceof Result.Error){
                     binding.progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
