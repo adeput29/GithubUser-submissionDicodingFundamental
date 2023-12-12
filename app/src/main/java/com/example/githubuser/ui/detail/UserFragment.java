@@ -94,9 +94,6 @@ public class UserFragment extends Fragment {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
                     } else if (result instanceof Result.Success){
-                        //binding.progressBar.setVisibility(View.GONE);
-                        //List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
-                        //userGitAdapter.submitList(userData);
                         viewModel.getFollowingOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowing -> {
                             binding.progressBar.setVisibility(View.GONE);
                             userGitAdapter.submitList(listFollowing);
@@ -113,9 +110,6 @@ public class UserFragment extends Fragment {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
                     } else if (result instanceof Result.Success){
-                        //binding.progressBar.setVisibility(View.GONE);
-                        //List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
-                        //userGitAdapter.submitList(userData);
                         viewModel.getFollowersOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowers -> {
                             binding.progressBar.setVisibility(View.GONE);
                             userGitAdapter.submitList(listFollowers);
@@ -124,7 +118,7 @@ public class UserFragment extends Fragment {
                     } else if (result instanceof Result.Error){
                         binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
-                    } //pisahin list view atau entity agar tidak bercampur mana list user home, list following lost followers contohnya seperti listfavorite
+                    }
                 }
             });
         }
@@ -135,7 +129,6 @@ public class UserFragment extends Fragment {
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvUser.setHasFixedSize(true);
         binding.rvUser.setAdapter(userGitAdapter);
-        setMode(tabName);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,17 +149,7 @@ public class UserFragment extends Fragment {
         });
     }
 
-    public void setMode(String tab) {
-        switch (tab) {
-            case TAB_FOLLOWING:
-                //Toast.makeText(getContext(),"TAB FOLLOWING", Toast.LENGTH_LONG).show();
 
-                break;
-            case TAB_FOLLOWERS:
-                //Toast.makeText(getContext(),"TAB FOLLOWERS", Toast.LENGTH_LONG).show();
-                break;
-        }
-    }
 
     @Override
     public void onDestroy() {
