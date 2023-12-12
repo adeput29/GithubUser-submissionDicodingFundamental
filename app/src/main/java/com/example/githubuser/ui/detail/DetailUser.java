@@ -50,7 +50,7 @@ public class DetailUser extends AppCompatActivity {
 
         binding = ActivityDetailUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        setSupportActionBar(binding.topAppBar);
 
 
         UserGitSelect userGitSelect;
@@ -78,7 +78,7 @@ public class DetailUser extends AppCompatActivity {
                 .load(userGitSelect.getAvatar_url())
                 .apply(new RequestOptions())
                 .into(binding.imgDetailUser);
-        setSupportActionBar(binding.topAppBar);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
