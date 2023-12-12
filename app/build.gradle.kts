@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    testImplementation("org.mockito:mockito-core:4.4.0")
     implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
     implementation("androidx.lifecycle:lifecycle-reactivestreams:2.6.1")
     implementation("com.loopj.android:android-async-http:1.4.9")

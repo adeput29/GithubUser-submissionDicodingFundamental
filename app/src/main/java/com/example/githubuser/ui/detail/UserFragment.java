@@ -123,10 +123,6 @@ public class UserFragment extends Fragment {
         binding.rvUser.setHasFixedSize(true);
         binding.rvUser.setAdapter(userGitAdapter);
         setMode(tabName);
-
-
-        Toast.makeText(getContext(), String.valueOf(userID),Toast.LENGTH_LONG).show();
-        Boolean isFavorite = true;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,10 +139,8 @@ public class UserFragment extends Fragment {
                     Snackbar.make(view, "Save Favorite", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
-
             }
         });
-
     }
 
     public void setMode(String tab) {

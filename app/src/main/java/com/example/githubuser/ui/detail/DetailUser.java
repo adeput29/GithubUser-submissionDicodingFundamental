@@ -1,5 +1,7 @@
 package com.example.githubuser.ui.detail;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +17,8 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -48,6 +52,7 @@ public class DetailUser extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
+
         UserGitSelect userGitSelect;
         if (android.os.Build.VERSION.SDK_INT >= 33) {
         userGitSelect = getIntent().getParcelableExtra(EXTRA_USER, UserGitSelect.class);
@@ -73,6 +78,27 @@ public class DetailUser extends AppCompatActivity {
                 .load(userGitSelect.getAvatar_url())
                 .apply(new RequestOptions())
                 .into(binding.imgDetailUser);
+        setSupportActionBar(binding.topAppBar);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_share, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        share();
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void share() {
+        String text = "Username Github: "+binding.tvnamaUser.getText().toString()+" \nUserID:"+binding.tvUserID.getText().toString();
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+        shareIntent.setType("text/plain");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "Share User..."));
     }
 
     @Override
