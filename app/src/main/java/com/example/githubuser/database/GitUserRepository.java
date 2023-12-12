@@ -1,5 +1,7 @@
 package com.example.githubuser.database;
 
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
@@ -107,14 +109,14 @@ public class GitUserRepository {
                                         gitItems.getId(),
                                         isBookmarked,
                                         gitItems.getAvatarUrl(),
-                                        gitItems.getFollowersUrl(),
+                                        login,
                                         gitItems.getFollowingUrl(),
                                         gitItems.getLogin(),
                                         gitItems.getLogin()
                                 );
 
                                 newlist.add(list);
-                                userGitDao.deleteAll();
+                                //userGitDao.deleteAll();
                                 userGitDao.insertUserGit(newlist);
                             }
                         });
@@ -156,13 +158,13 @@ public class GitUserRepository {
                                         isBookmarked,
                                         gitItems.getAvatarUrl(),
                                         gitItems.getFollowersUrl(),
-                                        gitItems.getFollowingUrl(),
+                                        login,
                                         gitItems.getLogin(),
                                         gitItems.getLogin()
                                 );
 
                                 newlist.add(list);
-                                userGitDao.deleteAll();
+                                //userGitDao.deleteAll();
                                 userGitDao.insertUserGit(newlist);
                             }
                         });
@@ -230,6 +232,13 @@ public class GitUserRepository {
 
     public LiveData<List<UserGitEntity>> getBookmark() {
         return userGitDao.getBookmark();
+    }
+
+    public LiveData<List<UserGitEntity>> getFollowersOffline(String user) {
+        return userGitDao.SelectFollowers(user);
+    }
+    public LiveData<List<UserGitEntity>> getFollowingOffline(String user) {
+        return userGitDao.SelectFollowing(user);
     }
 
     public void setBookmark(UserGitEntity userGitEntity, boolean bookmarkState) {

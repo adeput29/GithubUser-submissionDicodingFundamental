@@ -27,6 +27,14 @@ public class UserGitViewModel extends ViewModel {
         return gitUserRepository.getBookmark();
     }
 
+    public LiveData<List<UserGitEntity>> getFollowersOffline(String user){
+        return gitUserRepository.getFollowersOffline(user);
+    }
+
+    public LiveData<List<UserGitEntity>> getFollowingOffline(String user){
+        return gitUserRepository.getFollowingOffline(user);
+    }
+
     public void saveUser(UserGitEntity userGitEntity){
         gitUserRepository.setBookmark(userGitEntity, true);
     }

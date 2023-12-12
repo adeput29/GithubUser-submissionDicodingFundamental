@@ -18,6 +18,12 @@ public interface UserGitDao {
     @Query("SELECT * FROM UserGit where bookmark = 1")
     LiveData<List<UserGitEntity>> getBookmark();
 
+    @Query("SELECT * FROM UserGit where followers_url = :user")
+    LiveData<List<UserGitEntity>> SelectFollowers(String user);
+
+    @Query("SELECT * FROM UserGit where following_url = :user")
+    LiveData<List<UserGitEntity>> SelectFollowing(String user);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertUserGit(List<UserGitEntity> UserGit);
 

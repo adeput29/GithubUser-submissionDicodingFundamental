@@ -94,9 +94,13 @@ public class UserFragment extends Fragment {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
                     } else if (result instanceof Result.Success){
-                        binding.progressBar.setVisibility(View.GONE);
-                        List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
-                        userGitAdapter.submitList(userData);
+                        //binding.progressBar.setVisibility(View.GONE);
+                        //List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
+                        //userGitAdapter.submitList(userData);
+                        viewModel.getFollowingOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowing -> {
+                            binding.progressBar.setVisibility(View.GONE);
+                            userGitAdapter.submitList(listFollowing);
+                        });
                     } else if (result instanceof Result.Error){
                         binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
@@ -109,9 +113,14 @@ public class UserFragment extends Fragment {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
                     } else if (result instanceof Result.Success){
-                        binding.progressBar.setVisibility(View.GONE);
-                        List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
-                        userGitAdapter.submitList(userData);
+                        //binding.progressBar.setVisibility(View.GONE);
+                        //List<UserGitEntity> userData = ((Result.Success<List<UserGitEntity>>) result).getData();
+                        //userGitAdapter.submitList(userData);
+                        viewModel.getFollowersOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowers -> {
+                            binding.progressBar.setVisibility(View.GONE);
+                            userGitAdapter.submitList(listFollowers);
+                        });
+
                     } else if (result instanceof Result.Error){
                         binding.progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
@@ -119,6 +128,10 @@ public class UserFragment extends Fragment {
                 }
             });
         }
+
+
+
+
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvUser.setHasFixedSize(true);
         binding.rvUser.setAdapter(userGitAdapter);
