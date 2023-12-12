@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
         if (binding.searchView.getText().toString().equals("")){
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, mainFragment)
-                    .addToBackStack(null)
                     .commit();
         }
         RxDataStore<Preferences> dataStore = new RxPreferenceDataStoreBuilder(this, "theme_setting").build();
