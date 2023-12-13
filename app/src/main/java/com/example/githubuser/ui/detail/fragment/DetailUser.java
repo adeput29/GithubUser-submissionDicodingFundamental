@@ -1,5 +1,6 @@
 package com.example.githubuser.ui.detail.fragment;
 
+import android.content.Entity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -71,12 +73,43 @@ public class DetailUser extends AppCompatActivity {
             getSupportActionBar().setElevation(0);
         }
 
-        binding.tvnamaUser.setText(userGitSelect.getNamaUser());
+
+
+        //USER SELECT
+        ViewModelFactory factory = ViewModelFactory.getInstance(getApplicationContext());
+        UserGitViewModel viewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
+        UserGitAdapter userGitAdapter = new UserGitAdapter(userGitEntity -> {
+            if (userGitEntity.getBookmark()) {
+                viewModel.deleteUser(userGitEntity);
+            } else {
+                viewModel.saveUser(userGitEntity);
+            }
+        });
+        viewModel.getSelectedUser(userGitSelect.getUserName()).observe(this, result -> {
+            if (result != null) {
+                if (result instanceof Result.Loading){
+                } else if (result instanceof Result.Success){
+                    viewModel.selectedUserOffline(userGitSelect.getUserName()).observe(this, listSelected -> {
+                        userGitAdapter.submitList(listSelected);
+                        binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
+                    });
+                } else if (result instanceof Result.Error){
+                    Toast.makeText(this, "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        binding.tvUsername.setText(userGitSelect.getUserName());
         binding.tvUserID.setText("ID: "+userGitSelect.getId());
         Glide.with(this.getApplicationContext())
                 .load(userGitSelect.getAvatar_url())
                 .apply(new RequestOptions())
                 .into(binding.imgDetailUser);
+
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
