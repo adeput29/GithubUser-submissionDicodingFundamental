@@ -126,7 +126,7 @@ public class DetailUser extends AppCompatActivity {
     }
 
     public void share() {
-        String text = "Username Github: "+binding.tvnamaUser.getText().toString()+" \nUserID:"+binding.tvUserID.getText().toString();
+        String text = "Username Github: "+binding.tvUsername.getText().toString()+" \nUserID:"+binding.tvUserID.getText().toString();
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_TEXT, text);
