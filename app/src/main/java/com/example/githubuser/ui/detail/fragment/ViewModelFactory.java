@@ -1,4 +1,4 @@
-package com.example.githubuser.ui.detail;
+package com.example.githubuser.ui.detail.fragment;
 
 import android.content.Context;
 

@@ -16,8 +16,7 @@ import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.entity.UserGitSelect;
 import com.example.githubuser.databinding.ItemListviewBinding;
-import com.example.githubuser.ui.detail.DetailUser;
-import com.example.githubuser.ui.main.MainUserGitAdapter;
+import com.example.githubuser.ui.detail.fragment.DetailUser;
 
 public class ListViewAdapter extends ListAdapter<UserGitEntity, ListViewAdapter.MyViewHolder> {
     private final ListViewAdapter.OnItemClickCallback onItemClickCallback;

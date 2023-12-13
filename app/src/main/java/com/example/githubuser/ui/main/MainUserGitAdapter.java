@@ -2,15 +2,10 @@ package com.example.githubuser.ui.main;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +15,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.entity.UserGitSelect;
-import com.example.githubuser.databinding.FragmentMainBinding;
 import com.example.githubuser.databinding.ItemListviewBinding;
-import com.example.githubuser.ui.detail.DetailUser;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.githubuser.ui.detail.fragment.DetailUser;
 
 public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAdapter.MyViewHolder> {
     private final MainUserGitAdapter.OnItemClickCallback onItemClickCallback;

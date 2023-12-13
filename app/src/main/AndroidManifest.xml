@@ -25,7 +25,7 @@
                 android:value=".ui.main.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.detail.DetailUser"
+            android:name=".ui.detail.fragment.DetailUser"
             android:exported="false"
             android:label="@string/title_activity_detail_user"
             android:theme="@style/Theme.GithubUser.NoActionBar" />

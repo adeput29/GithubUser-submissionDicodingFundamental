@@ -1,4 +1,4 @@
-package com.example.githubuser.ui.detail;
+package com.example.githubuser.ui.detail.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,18 +6,23 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
+import com.example.githubuser.database.Result;
+import com.example.githubuser.database.local.entity.UserGitEntity;
 import com.example.githubuser.database.local.entity.UserGitSelect;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import com.example.githubuser.databinding.ActivityDetailUserBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailUser extends AppCompatActivity {
@@ -26,6 +31,8 @@ public class DetailUser extends AppCompatActivity {
     public String UserSelect;
 
     public int id;
+
+    private ArrayList<UserGitEntity> list = new ArrayList<>();
 
     public boolean isBookmark;
 
@@ -71,6 +78,34 @@ public class DetailUser extends AppCompatActivity {
                 .apply(new RequestOptions())
                 .into(binding.imgDetailUser);
 
+
+
+        ViewModelFactory factory = ViewModelFactory.getInstance(getApplicationContext());
+        UserGitViewModel viewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
+        UserGitAdapter userGitAdapter = new UserGitAdapter(userGitEntity -> {
+            if (userGitEntity.getBookmark()) {
+                viewModel.deleteUser(userGitEntity);
+            } else {
+                viewModel.saveUser(userGitEntity);
+            }
+        });
+        viewModel.getUserFollowing(userGitSelect.getUserName()).observe(this, result -> {
+            if (result != null) {
+                if (result instanceof Result.Loading){
+                    //binding.progressBar.setVisibility(View.VISIBLE);
+                } else if (result instanceof Result.Success){
+                    viewModel.selectedUser(userGitSelect.getUserName()).observe(this, UserSelect -> {
+                        //binding.progressBar.setVisibility(View.GONE);
+                        userGitAdapter.submitList(UserSelect);
+                        list.add(UserSelect); belom dapet cara ngambil nama lengkap user dan followers dan followingnya
+                        Toast.makeText(getApplicationContext(),list.get(0).toString(),Toast.LENGTH_LONG).show();
+                    });
+                } else if (result instanceof Result.Error){
+                    //binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

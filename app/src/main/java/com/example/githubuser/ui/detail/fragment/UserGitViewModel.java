@@ -1,4 +1,4 @@
-package com.example.githubuser.ui.detail;
+package com.example.githubuser.ui.detail.fragment;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -33,6 +33,10 @@ public class UserGitViewModel extends ViewModel {
 
     public LiveData<List<UserGitEntity>> getFollowingOffline(String user){
         return gitUserRepository.getFollowingOffline(user);
+    }
+
+    public LiveData<List<UserGitEntity>> selectedUser(String user){
+        return gitUserRepository.getSelectedUser(user);
     }
 
     public void saveUser(UserGitEntity userGitEntity){

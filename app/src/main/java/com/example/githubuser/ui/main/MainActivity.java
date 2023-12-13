@@ -6,34 +6,23 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.githubuser.R;
 import com.example.githubuser.databinding.ActivityMainBinding;
-import com.example.githubuser.ui.detail.DetailUser;
 import com.example.githubuser.ui.listFav.Listfav;
 import com.example.githubuser.ui.setting.MainViewModel;
 import com.example.githubuser.ui.setting.SettingActivity;
 import com.example.githubuser.ui.setting.SettingPreferences;
 import com.example.githubuser.ui.setting.ViewModelFactory;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -27,6 +27,9 @@ public interface UserGitDao {
     @Query("SELECT * FROM UserGit where isMain = :isMain")
     LiveData<List<UserGitEntity>> SelectMain(boolean isMain);
 
+    @Query("SELECT * FROM UserGit where login = :user")
+    LiveData<List<UserGitEntity>> getSelectedUser(String user);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertUserGit(List<UserGitEntity> UserGit);
 
