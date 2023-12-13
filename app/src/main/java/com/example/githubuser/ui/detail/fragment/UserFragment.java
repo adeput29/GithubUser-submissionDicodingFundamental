@@ -60,8 +60,7 @@ public class UserFragment extends Fragment {
             tabName = getArguments().getString(ARG_TAB);
             UserSelected = getArguments().getString(USER_SELECTED);
             userID = getArguments().getInt(USER_ID);
-            isBookmark = false;
-            isBookmark = getArguments().getBoolean(USER_BOOLEAN);
+
         }
 
         ViewModelFactory factory = ViewModelFactory.getInstance(getActivity());
@@ -75,26 +74,34 @@ public class UserFragment extends Fragment {
             }
         });
 
-        if (isBookmark) {
-            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
-        } else {
-            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
-        }
 
-        if (tabName.equals(TAB_FOLLOWING)) {/*
-            //USER SELECT
-            viewModel.getSelectedUser(UserSelected).observe(getViewLifecycleOwner(), result -> {
-                if (result != null) {
-                    if (result instanceof Result.Loading){
-                        binding.progressBar.setVisibility(View.VISIBLE);
-                    } else if (result instanceof Result.Success){
-
-                    } else if (result instanceof Result.Error){
-                        binding.progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
-                    }
+        viewModel.getSelectedUser(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            if (result != null) {
+                if (result instanceof Result.Loading){
+                } else if (result instanceof Result.Success){
+                    viewModel.selectedUserOffline(UserSelected).observe(getViewLifecycleOwner(), CheckBookMark -> {
+                        isBookmark = CheckBookMark.get(0).getBookmark();
+                        if (isBookmark) {
+                            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+                        } else {
+                            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+                        }
+                    });
+                } else if (result instanceof Result.Error){
+                    Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
                 }
-            });*/
+            }
+        });
+
+
+
+
+        if (tabName.equals(TAB_FOLLOWING)) {
+            if (isBookmark) {
+                fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+            } else {
+                fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+            }
             viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
@@ -103,7 +110,6 @@ public class UserFragment extends Fragment {
                         viewModel.getFollowingOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowing -> {
                             binding.progressBar.setVisibility(View.GONE);
                             userGitAdapter.submitList(listFollowing);
-                            //Toast.makeText(getContext(),listFollowing.get(0).getNamaUser(),Toast.LENGTH_SHORT).show();
                         });
                     } else if (result instanceof Result.Error){
                         binding.progressBar.setVisibility(View.GONE);
@@ -112,6 +118,11 @@ public class UserFragment extends Fragment {
                 }
             });
         } else if (tabName.equals(TAB_FOLLOWERS)){
+            if (isBookmark) {
+                fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+            } else {
+                fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+            }
             viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
