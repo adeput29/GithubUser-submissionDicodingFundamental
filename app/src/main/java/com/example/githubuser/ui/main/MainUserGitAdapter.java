@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -54,7 +55,7 @@ public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAd
         }
 
         void bind(UserGitEntity userGitEntity) {
-            binding.tvNamaUser.setText(userGitEntity.getNamaUser());
+            binding.tvNamaUser.setText(userGitEntity.getUsername());
             binding.tvKeterangan.setText("ID: "+userGitEntity.getId());
             Glide.with(itemView.getContext())
                     .load(userGitEntity.getAvatar_url())
@@ -80,7 +81,7 @@ public class MainUserGitAdapter extends ListAdapter<UserGitEntity, MainUserGitAd
             new DiffUtil.ItemCallback<UserGitEntity>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull UserGitEntity oldUser, @NonNull UserGitEntity newUser) {
-                    return oldUser.getNamaUser().equals(newUser.getNamaUser());
+                    return oldUser.getUsername().equals(newUser.getUsername());
                 }
 
                 @SuppressLint("DiffUtilEquals")

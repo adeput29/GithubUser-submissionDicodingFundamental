@@ -75,7 +75,6 @@ public class UserFragment extends Fragment {
             }
         });
 
-
         if (isBookmark) {
             fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
         } else {
@@ -83,7 +82,26 @@ public class UserFragment extends Fragment {
         }
 
         if (tabName.equals(TAB_FOLLOWING)) {
-            viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            //USER SELECT
+            viewModel.getSelectedUser(UserSelected).observe(getViewLifecycleOwner(), result -> {
+                if (result != null) {
+                    if (result instanceof Result.Loading){
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                    } else if (result instanceof Result.Success){
+                        viewModel.selectedUserOffline(UserSelected).observe(getViewLifecycleOwner(), listSelect -> {
+                            binding.progressBar.setVisibility(View.GONE);
+                            userGitAdapter.submitList(listSelect);
+                            Toast.makeText(getContext(), listSelect.get(0).getNamaUser(),Toast.LENGTH_SHORT).show();
+                            //listSelect.get(0).getNamaUser();
+                        });
+
+                    } else if (result instanceof Result.Error){
+                        binding.progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            /*viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
@@ -97,9 +115,9 @@ public class UserFragment extends Fragment {
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });*/
         } else if (tabName.equals(TAB_FOLLOWERS)){
-            viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            /*viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
                 if (result != null) {
                     if (result instanceof Result.Loading){
                         binding.progressBar.setVisibility(View.VISIBLE);
@@ -114,7 +132,8 @@ public class UserFragment extends Fragment {
                         Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });*/
+
         }
 
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -23,6 +23,11 @@ public class UserGitViewModel extends ViewModel {
         return gitUserRepository.getFollowers(a);
     }
 
+    public LiveData<Result<List<UserGitEntity>>> getSelectedUser(String a){
+        return gitUserRepository.SelectedUser(a);
+    }
+
+
     public LiveData<List<UserGitEntity>> getBookmark(){
         return gitUserRepository.getBookmark();
     }
@@ -35,7 +40,7 @@ public class UserGitViewModel extends ViewModel {
         return gitUserRepository.getFollowingOffline(user);
     }
 
-    public LiveData<List<UserGitEntity>> selectedUser(String user){
+    public LiveData<List<UserGitEntity>> selectedUserOffline(String user){
         return gitUserRepository.getSelectedUser(user);
     }
 

@@ -77,35 +77,6 @@ public class DetailUser extends AppCompatActivity {
                 .load(userGitSelect.getAvatar_url())
                 .apply(new RequestOptions())
                 .into(binding.imgDetailUser);
-
-
-
-        ViewModelFactory factory = ViewModelFactory.getInstance(getApplicationContext());
-        UserGitViewModel viewModel = new ViewModelProvider(this, factory).get(UserGitViewModel.class);
-        UserGitAdapter userGitAdapter = new UserGitAdapter(userGitEntity -> {
-            if (userGitEntity.getBookmark()) {
-                viewModel.deleteUser(userGitEntity);
-            } else {
-                viewModel.saveUser(userGitEntity);
-            }
-        });
-        viewModel.getUserFollowing(userGitSelect.getUserName()).observe(this, result -> {
-            if (result != null) {
-                if (result instanceof Result.Loading){
-                    //binding.progressBar.setVisibility(View.VISIBLE);
-                } else if (result instanceof Result.Success){
-                    viewModel.selectedUser(userGitSelect.getUserName()).observe(this, UserSelect -> {
-                        //binding.progressBar.setVisibility(View.GONE);
-                        userGitAdapter.submitList(UserSelect);
-                        list.add(UserSelect); belom dapet cara ngambil nama lengkap user dan followers dan followingnya
-                        Toast.makeText(getApplicationContext(),list.get(0).toString(),Toast.LENGTH_LONG).show();
-                    });
-                } else if (result instanceof Result.Error){
-                    //binding.progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

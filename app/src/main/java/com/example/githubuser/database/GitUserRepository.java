@@ -1,6 +1,7 @@
 package com.example.githubuser.database;
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -65,7 +66,7 @@ public class GitUserRepository {
                                         gitItems.getFollowersUrl(),
                                         gitItems.getFollowingUrl(),
                                         gitItems.getLogin(),
-                                        gitItems.getLogin(),
+                                        "",
                                         true
                                 );
                                 newlist.add(list);
@@ -113,7 +114,7 @@ public class GitUserRepository {
                                         login,
                                         gitItems.getFollowingUrl(),
                                         gitItems.getLogin(),
-                                        gitItems.getLogin(),
+                                        gitItems.getName(),
                                         false
                                 );
 
@@ -162,7 +163,7 @@ public class GitUserRepository {
                                         gitItems.getFollowersUrl(),
                                         login,
                                         gitItems.getLogin(),
-                                        gitItems.getLogin(),
+                                        gitItems.getName(),
                                         false
                                 );
 
@@ -209,14 +210,15 @@ public class GitUserRepository {
                                     gitItems.getFollowingUrl(),
                                     gitItems.getLogin(),
                                     gitItems.getName(),
-                                    false
+                                    true
                             );
                             newlist.add(list);
-                            //userGitDao.deleteAll();
+                            userGitDao.deleteUsername(login);
                             userGitDao.insertUserGit(newlist);
                         });
                     }
                 }
+
             }
 
             @Override

@@ -39,6 +39,9 @@ public interface UserGitDao {
     @Query("DELETE FROM UserGit WHERE bookmark = 0")
     void deleteAll();
 
+    @Query("DELETE FROM UserGit WHERE login = :string")
+    void deleteUsername(String string);
+
     @Query("SELECT EXISTS(SELECT * FROM UserGit WHERE id = :id AND bookmark = 1)")
     Boolean isUserBookmark(int id);
 

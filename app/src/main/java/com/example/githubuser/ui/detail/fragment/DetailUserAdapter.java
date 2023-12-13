@@ -3,6 +3,7 @@ package com.example.githubuser.ui.detail.fragment;
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -13,16 +14,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.githubuser.R;
 import com.example.githubuser.database.local.entity.UserGitEntity;
+import com.example.githubuser.databinding.ActivityDetailUserBinding;
 import com.example.githubuser.databinding.ItemListviewBinding;
 
-public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.MyViewHolder> {
+public class DetailUserAdapter  extends ListAdapter<UserGitEntity, DetailUserAdapter.MyViewHolder> {
     private final OnItemClickCallback onItemClickCallback;
 
     interface OnItemClickCallback {
         void onBookmarkClick(UserGitEntity data);
     }
 
-    public UserGitAdapter(OnItemClickCallback onItemClickCallback) {
+    public DetailUserAdapter(OnItemClickCallback onItemClickCallback) {
         super(DIFF_CALLBACK);
         this.onItemClickCallback = onItemClickCallback;
     }
@@ -30,13 +32,12 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemListviewBinding binding = ItemListviewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-
+        ActivityDetailUserBinding binding = ActivityDetailUserBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new MyViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DetailUserAdapter.MyViewHolder holder, int position) {
         UserGitEntity userGitEntity = getItem(position);
         holder.bind(userGitEntity);
     }
@@ -45,20 +46,17 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        final ItemListviewBinding binding;
+        final ActivityDetailUserBinding binding;
 
-        MyViewHolder(ItemListviewBinding binding) {
+        MyViewHolder(ActivityDetailUserBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
 
         void bind(UserGitEntity userGitEntity) {
-            binding.tvNamaUser.setText(userGitEntity.getUsername());
-            binding.tvKeterangan.setText("ID: "+userGitEntity.getId());
-            Glide.with(itemView.getContext())
-                    .load(userGitEntity.getAvatar_url())
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
-                    .into(binding.imgUser);
+            binding.tvnamaUser.setText(userGitEntity.getNamaUser());
+            Toast.makeText(itemView.getContext(),userGitEntity.getNamaUser(),Toast.LENGTH_LONG).show();
+            Toast.makeText(itemView.getContext(),"anu",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -66,7 +64,7 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
             new DiffUtil.ItemCallback<UserGitEntity>() {
                 @Override
                 public boolean areItemsTheSame(@NonNull UserGitEntity oldUser, @NonNull UserGitEntity newUser) {
-                    return oldUser.getUsername().equals(newUser.getUsername());
+                    return oldUser.getNamaUser().equals(newUser.getNamaUser());
                 }
 
                 @SuppressLint("DiffUtilEquals")
@@ -75,4 +73,4 @@ public class UserGitAdapter extends ListAdapter<UserGitEntity, UserGitAdapter.My
                     return oldUser.equals(newUser);
                 }
             };
-}
+    }
