@@ -24,7 +24,7 @@ public interface UserGitDao {
     @Query("SELECT * FROM UserGit where following_url = :user")
     LiveData<List<UserGitEntity>> SelectFollowing(String user);
 
-    @Query("SELECT * FROM UserGit where isMain = :isMain")
+    @Query("SELECT * FROM UserGit where isMain = :isMain ORDER BY id DESC")
     LiveData<List<UserGitEntity>> SelectMain(boolean isMain);
 
     @Query("SELECT * FROM UserGit where login = :user")

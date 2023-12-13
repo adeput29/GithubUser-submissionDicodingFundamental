@@ -63,8 +63,8 @@ public class GitUserRepository {
                                         gitItems.getId(),
                                         isBookmarked,
                                         gitItems.getAvatarUrl(),
-                                        gitItems.getFollowersUrl(),
-                                        gitItems.getFollowingUrl(),
+                                        "",
+                                        "",
                                         gitItems.getLogin(),
                                         "",
                                         true
@@ -206,8 +206,8 @@ public class GitUserRepository {
                                     gitItems.getId(),
                                     isBookmarked,
                                     gitItems.getAvatarUrl(),
-                                    gitItems.getFollowersUrl(),
-                                    gitItems.getFollowingUrl(),
+                                    String.valueOf(gitItems.getCountFollowers()),
+                                    String.valueOf(gitItems.getCountFollowing()),
                                     gitItems.getLogin(),
                                     gitItems.getName(),
                                     true

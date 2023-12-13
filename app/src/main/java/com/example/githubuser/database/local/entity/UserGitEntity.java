@@ -35,6 +35,7 @@ public class UserGitEntity implements Parcelable {
     @ColumnInfo(name = "name")
     private String namaUser;
 
+
     protected UserGitEntity(Parcel in) {
         id = in.readInt();
         bookmark = in.readBoolean();

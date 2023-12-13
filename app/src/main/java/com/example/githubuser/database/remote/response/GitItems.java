@@ -64,6 +64,29 @@ public class GitItems {
 	@SerializedName("name")
 	private String name;
 
+	@SerializedName("followers")
+	private int countFollowers;
+
+	@SerializedName("following")
+	private int countFollowing;
+
+
+	public int getCountFollowers() {
+		return countFollowers;
+	}
+
+	public void setCountFollowers(int countFollowers) {
+		this.countFollowers = countFollowers;
+	}
+
+	public int getCountFollowing() {
+		return countFollowing;
+	}
+
+	public void setCountFollowing(int countFollowing) {
+		this.countFollowing = countFollowing;
+	}
+
 	public String getName() {
 		return name;
 	}

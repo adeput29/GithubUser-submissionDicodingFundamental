@@ -93,6 +93,8 @@ public class DetailUser extends AppCompatActivity {
                         userGitAdapter.submitList(listSelected);
                         //Toast.makeText(this,listSelected.get(0).getNamaUser(),Toast.LENGTH_LONG).show();
                         binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
+                        binding.tvFollowers.setText(listSelected.get(0).getFollowers_url()+" Followers");
+                        binding.tvFollowing.setText(listSelected.get(0).getFollowing_url()+" Following");
                     });
                 } else if (result instanceof Result.Error){
                     Toast.makeText(this, "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
