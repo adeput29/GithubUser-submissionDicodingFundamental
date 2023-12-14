@@ -97,6 +97,32 @@ public class UserFragment extends Fragment {
 
 
 
+        viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            if (result != null) {
+                if (result instanceof Result.Loading){
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                } else if (result instanceof Result.Success){
+
+                } else if (result instanceof Result.Error){
+                    binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
+            if (result != null) {
+                if (result instanceof Result.Loading){
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                } else if (result instanceof Result.Success){
+
+
+                } else if (result instanceof Result.Error){
+                    binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         if (tabName.equals(TAB_FOLLOWING)) {
             if (isBookmark) {
@@ -104,44 +130,63 @@ public class UserFragment extends Fragment {
             } else {
                 fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
             }
-            viewModel.getUserFollowing(UserSelected).observe(getViewLifecycleOwner(), result -> {
-                if (result != null) {
-                    if (result instanceof Result.Loading){
-                        binding.progressBar.setVisibility(View.VISIBLE);
-                    } else if (result instanceof Result.Success){
-                        viewModel.getFollowingOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowing -> {
-                            binding.progressBar.setVisibility(View.GONE);
-                            userGitAdapter.submitList(listFollowing);
-                        });
-                    } else if (result instanceof Result.Error){
-                        binding.progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+            viewModel.getFollowingOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowing -> {
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            synchronized (this) {
+                                wait(1000);
+
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        binding.progressBar.setVisibility(View.GONE);
+                                        userGitAdapter.submitList(listFollowing);
+                                    }
+                                });
+
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
+                };
+                thread.start();
+
             });
+
         } else if (tabName.equals(TAB_FOLLOWERS)){
             if (isBookmark) {
                 fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
             } else {
                 fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
             }
-            viewModel.getUserFollowers(UserSelected).observe(getViewLifecycleOwner(), result -> {
-                if (result != null) {
-                    if (result instanceof Result.Loading){
-                        binding.progressBar.setVisibility(View.VISIBLE);
-                    } else if (result instanceof Result.Success){
-                        viewModel.getFollowersOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowers -> {
-                            binding.progressBar.setVisibility(View.GONE);
-                            userGitAdapter.submitList(listFollowers);
-                        });
 
-                    } else if (result instanceof Result.Error){
-                        binding.progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
+            viewModel.getFollowersOffline(UserSelected).observe(getViewLifecycleOwner(), listFollowers -> {
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            synchronized (this) {
+                                wait(1000);
+
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        binding.progressBar.setVisibility(View.GONE);
+                                        userGitAdapter.submitList(listFollowers);
+                                    }
+                                });
+
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
+                };
+                thread.start();
             });
-
         }
 
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));

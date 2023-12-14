@@ -61,8 +61,30 @@ public class MainFragment extends Fragment {
                     binding.progressBar.setVisibility(View.VISIBLE);
                 } else if (result instanceof Result.Success){
                     viewModel.getMainUser(true).observe(getViewLifecycleOwner(), listUserMain -> {
-                        binding.progressBar.setVisibility(View.GONE);
-                        userGitAdapter.submitList(listUserMain);
+                        //binding.progressBar.setVisibility(View.GONE);
+                        Thread thread = new Thread() {
+                            @Override
+                            public void run() {
+                                try {
+                                    synchronized (this) {
+                                        wait(1000);
+
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                binding.progressBar.setVisibility(View.GONE);
+                                                userGitAdapter.submitList(listUserMain);
+                                            }
+                                        });
+
+                                    }
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+                        thread.start();
+
                     });
 
                 } else if (result instanceof Result.Error){
@@ -71,6 +93,8 @@ public class MainFragment extends Fragment {
                 }
             }
         });
+
+
 
 
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
