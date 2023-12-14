@@ -5,9 +5,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +26,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainFragment extends Fragment {
 
@@ -47,25 +54,30 @@ public class MainFragment extends Fragment {
             }
         });
 
+
         viewModel.getUserGit(search_text).observe(getViewLifecycleOwner(), result -> {
             if (result != null) {
                 if (result instanceof Result.Loading){
                     binding.progressBar.setVisibility(View.VISIBLE);
                 } else if (result instanceof Result.Success){
-                    binding.progressBar.setVisibility(View.GONE);
+                    if ( view != null)
                     viewModel.getMainUser(true).observe(getViewLifecycleOwner(), listUserMain -> {
                         binding.progressBar.setVisibility(View.GONE);
                         userGitAdapter.submitList(listUserMain);
                     });
+
                 } else if (result instanceof Result.Error){
                     binding.progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
         binding.rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvUser.setHasFixedSize(true);
         binding.rvUser.setAdapter(userGitAdapter);
+
     }
 
     @Override
@@ -73,12 +85,21 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         search_text = getArguments().getString(EXTRA_SEARCH);
         binding = FragmentMainBinding.inflate(inflater);
+
         return binding.getRoot();
     }
+
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
     }
 }
