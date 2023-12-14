@@ -80,11 +80,13 @@ public class UserFragment extends Fragment {
                 if (result instanceof Result.Loading){
                 } else if (result instanceof Result.Success){
                     viewModel.selectedUserOffline(UserSelected).observe(getViewLifecycleOwner(), CheckBookMark -> {
-                        isBookmark = CheckBookMark.get(0).getBookmark();
-                        if (isBookmark) {
-                            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
-                        } else {
-                            fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+                        if(CheckBookMark.size()>0) {
+                            isBookmark = CheckBookMark.get(0).getBookmark();
+                            if (isBookmark) {
+                                fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_true));
+                            } else {
+                                fab.setImageDrawable(ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_white_false));
+                            }
                         }
                     });
                 } else if (result instanceof Result.Error){

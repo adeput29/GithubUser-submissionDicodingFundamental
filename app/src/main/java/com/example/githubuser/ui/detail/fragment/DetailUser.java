@@ -91,9 +91,11 @@ public class DetailUser extends AppCompatActivity {
                 } else if (result instanceof Result.Success){
                     viewModel.selectedUserOffline(userGitSelect.getUserName()).observe(this, listSelected -> {
                         userGitAdapter.submitList(listSelected);
-                        binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
-                        binding.tvFollowers.setText(listSelected.get(0).getFollowers_url()+" Followers");
-                        binding.tvFollowing.setText(listSelected.get(0).getFollowing_url()+" Following");
+                        if(listSelected.size()>0){
+                            binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
+                            binding.tvFollowers.setText(listSelected.get(0).getFollowers_url()+" Followers");
+                            binding.tvFollowing.setText(listSelected.get(0).getFollowing_url()+" Following");
+                        }
                     });
                 } else if (result instanceof Result.Error){
                     Toast.makeText(this, "Terjadi kesalahan"+ ((Result.Error<List<UserGitEntity>>) result).getError(), Toast.LENGTH_SHORT).show();

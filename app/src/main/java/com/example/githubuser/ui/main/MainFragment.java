@@ -60,7 +60,6 @@ public class MainFragment extends Fragment {
                 if (result instanceof Result.Loading){
                     binding.progressBar.setVisibility(View.VISIBLE);
                 } else if (result instanceof Result.Success){
-                    if ( view != null)
                     viewModel.getMainUser(true).observe(getViewLifecycleOwner(), listUserMain -> {
                         binding.progressBar.setVisibility(View.GONE);
                         userGitAdapter.submitList(listUserMain);
