@@ -90,6 +90,9 @@ public class DetailUser extends AppCompatActivity {
                     viewModel.selectedUserOffline(userGitSelect.getUserName()).observe(this, listSelected -> {
                         userGitAdapter.submitList(listSelected);
                         if(listSelected.size()>0){
+                            binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
+                            binding.tvFollowers.setText(listSelected.get(0).getFollowers_url()+" Followers");
+                            binding.tvFollowing.setText(listSelected.get(0).getFollowing_url()+" Following");
                             Thread thread = new Thread() {
                                 @Override
                                 public void run() {
@@ -100,9 +103,6 @@ public class DetailUser extends AppCompatActivity {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
-                                                    binding.tvFollowers.setText(listSelected.get(0).getFollowers_url()+" Followers");
-                                                    binding.tvFollowing.setText(listSelected.get(0).getFollowing_url()+" Following");
                                                     binding.progressBar.setVisibility(View.GONE);
                                                 }
                                             });
