@@ -99,7 +99,6 @@ public class DetailUser extends AppCompatActivity {
                                     try {
                                         synchronized (this) {
                                             wait(700);
-
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
