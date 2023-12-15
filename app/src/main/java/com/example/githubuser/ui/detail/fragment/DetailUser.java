@@ -1,6 +1,5 @@
 package com.example.githubuser.ui.detail.fragment;
 
-import android.content.Entity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -24,7 +23,6 @@ import android.widget.Toast;
 import com.example.githubuser.databinding.ActivityDetailUserBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailUser extends AppCompatActivity {
@@ -34,7 +32,6 @@ public class DetailUser extends AppCompatActivity {
 
     public int id;
 
-    private ArrayList<UserGitEntity> list = new ArrayList<>();
 
     public boolean isBookmark;
 
@@ -54,6 +51,7 @@ public class DetailUser extends AppCompatActivity {
         setSupportActionBar(binding.topAppBar);
 
 
+        binding.progressBar.setVisibility(View.VISIBLE);
         UserGitSelect userGitSelect;
         if (android.os.Build.VERSION.SDK_INT >= 33) {
         userGitSelect = getIntent().getParcelableExtra(EXTRA_USER, UserGitSelect.class);
@@ -92,9 +90,31 @@ public class DetailUser extends AppCompatActivity {
                     viewModel.selectedUserOffline(userGitSelect.getUserName()).observe(this, listSelected -> {
                         userGitAdapter.submitList(listSelected);
                         if(listSelected.size()>0){
-                            binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
-                            binding.tvFollowers.setText(listSelected.get(0).getFollowers_url()+" Followers");
-                            binding.tvFollowing.setText(listSelected.get(0).getFollowing_url()+" Following");
+                            Thread thread = new Thread() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        synchronized (this) {
+                                            wait(1000);
+
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    binding.tvnamaUser.setText(listSelected.get(0).getNamaUser());
+                                                    binding.tvFollowers.setText(listSelected.get(0).getFollowers_url()+" Followers");
+                                                    binding.tvFollowing.setText(listSelected.get(0).getFollowing_url()+" Following");
+                                                    binding.progressBar.setVisibility(View.GONE);
+                                                }
+                                            });
+
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            };
+                            thread.start();
+
                         }
                     });
                 } else if (result instanceof Result.Error){

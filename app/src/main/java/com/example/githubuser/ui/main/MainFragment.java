@@ -61,7 +61,6 @@ public class MainFragment extends Fragment {
                     binding.progressBar.setVisibility(View.VISIBLE);
                 } else if (result instanceof Result.Success){
                     viewModel.getMainUser(true).observe(getViewLifecycleOwner(), listUserMain -> {
-                        //binding.progressBar.setVisibility(View.GONE);
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
