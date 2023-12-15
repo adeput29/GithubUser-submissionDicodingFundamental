@@ -98,7 +98,7 @@ public class DetailUser extends AppCompatActivity {
                                 public void run() {
                                     try {
                                         synchronized (this) {
-                                            wait(1000);
+                                            wait(700);
 
                                             runOnUiThread(new Runnable() {
                                                 @Override
