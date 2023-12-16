@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.githubuser.R;
 import com.example.githubuser.databinding.ActivityMainBinding;
+import com.example.githubuser.ui.about;
 import com.example.githubuser.ui.listFav.Listfav;
 import com.example.githubuser.ui.setting.MainViewModel;
 import com.example.githubuser.ui.setting.SettingActivity;
@@ -105,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.menuFavorite) {
             Intent MenuFavorite = new Intent(this, Listfav.class);
             startActivity(MenuFavorite);
+            return super.onOptionsItemSelected(item);
+        }
+        else if (item.getItemId() == R.id.menuCredit) {
+            Intent MenuCredit = new Intent(this, about.class);
+            startActivity(MenuCredit);
             return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);

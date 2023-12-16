@@ -12,5 +12,9 @@
             android:icon="@drawable/ic_favorite_black_true"
             android:title="@string/favorite"
             app:showAsAction="always" />
+        <item
+            android:id="@+id/menuCredit"
+            android:title="@string/tentang"
+            app:showAsAction="collapseActionView" />
     </group>
 </menu>
