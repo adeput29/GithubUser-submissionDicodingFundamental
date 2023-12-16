@@ -9,10 +9,18 @@ Cek dan sesuaikan gradle dengan kebutuhan anda (update gradle).
 Repositori ini dibuat untuk tujuan berbagi dan pendidikan saja. Plagiarisme tidak dapat diterima dan bukan merupakan tanggung jawab saya sebagai penulis.
 
 ## Project Preview:
- <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_001.png" alt="project"/> </img>
- <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_002.png" alt="project"/> </img>
- <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_003.png" alt="project"/> </img>
- <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_004.png" alt="project"/> </img>
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_001.png" alt="Submission3 1"
+     style="float: left; margin-right: 10px;"
+     width="200" />
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_002.png" alt="Submission3 2"
+     style="float: left; margin-right: 10px;"
+     width="200" />
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_003.png" alt="Submission3 3"
+     style="float: left; margin-right: 10px;"
+     width="200" />
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_004.png" alt="Submission3 4"
+     style="float: left; margin-right: 10px;"
+     width="200" />
 
 ## Submission Detail
 1. Aplikasi bisa menambah dan menghapus user dari daftar favorite.
