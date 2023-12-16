@@ -9,7 +9,10 @@ Cek dan sesuaikan gradle dengan kebutuhan anda (update gradle).
 Repositori ini dibuat untuk tujuan berbagi dan pendidikan saja. Plagiarisme tidak dapat diterima dan bukan merupakan tanggung jawab saya sebagai penulis.
 
 ## Project Preview:
- <img src="" alt="project"/> </img>
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_001.png" alt="project"/> </img>
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_002.png" alt="project"/> </img>
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_003.png" alt="project"/> </img>
+ <img src="https://github.com/adeput29/GithubUser-submissionDicodingFundamental/blob/master/app/src/main/res/drawable/Screenshot_ui_004.png" alt="project"/> </img>
 
 ## Submission Detail
 1. Aplikasi bisa menambah dan menghapus user dari daftar favorite.
