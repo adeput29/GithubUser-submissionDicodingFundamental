@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">GithubUser</string>
+    <string name="byadeputra">By Ade Putra Syamsuri</string>
     <string name="CariUser">Cari User</string>
     <string name="favorite">Favorite</string>
     <string name="pengaturan">Pengaturan</string>
