@@ -31,12 +31,12 @@ Repositori ini dibuat untuk tujuan berbagi dan pendidikan saja. Plagiarisme tida
 6. Aplikasi bisa mengganti dark mode dan light mode.
 
 ## Submission 3: GitHub User App
-Rating: ⭐⭐⭐⭐
-Ada beberapa komponen Android yang saya implementasikan pada proyek pengajuan ini:
-Room
-DataStore
-Repository
-Injection
-Retrofit
+# Rating: ⭐⭐⭐⭐
+# Ada beberapa komponen Android yang saya implementasikan pada proyek pengajuan ini:
+1. Room
+2. DataStore
+3. Repository
+4. Injection
+5. Retrofit
 
 ## By Ade Putra Syamsuri
